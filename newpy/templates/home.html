@@ -1,0 +1,243 @@
+{% extends 'index.html' %}
+{% load comments %}
+{% block page-content %}
+<!--bbs-contents-->
+
+    {% block index__part %}
+
+<!-- saved from url=(0037)https://my.oschina.net/u/3264690/blog -->
+    <link rel="stylesheet" type="text/css" href="/static/home_files/leeui_layout.css">
+    <link type="text/css" href="/static/home_files/icon-svg.min.css" rel="stylesheet">
+    <link type="text/css" href="/static/home_files/blog.min.css" rel="stylesheet">
+
+    <style type="text/css"></style>
+    <div>
+        <div class="blog-user">
+            <div class="container">
+                <div class="flex-item">
+                    <div class="flex-item-3 flex-item-md-3 sidebar">
+                        <div class="user-info">
+                            <div class="icon">
+                                <a href="#" class="Img" target="_blank"><img src="/{{ user.photo }}" align="absmiddle" alt="{{ user.user }}" title="{{ user.user }}" class="LargePortrait"></a>
+                            </div>
+                            <div class="name">
+                                <a href="#" target="_blank">{{ user.user }}</a>
+                                <a href="#" target="_blank"><i class="icon-svg icon-home"></i></a>
+                            </div>
+                            <div class="writewords">
+                                共码了 <span title="共 27 篇">11788</span> 个字
+                            </div>
+                            <div class="edit">
+                                <a href="/bbs_pub/" class="btn btn-green btn-lg">写文章</a>
+                            </div>
+                            <div class="edit link text-gary">
+                                <a href="#" target="_blank">
+                                    草稿箱 (2)
+                                </a>
+                            </div>
+                            <div class="edit">
+                                <a href="#" target="_blank"><span style="font-size: 12px;padding: .1em .5em;color: #FF6600;border: 1px solid #FF6600;border-radius: 9px!important;">RSS订阅</span></a>
+                            </div>
+                        </div>
+                        <div class="divide"></div>
+                        <div class="user-radar hide" data-user="3264690">
+                            <div id="radar-skill" style="width: 200px;height: 120px; margin: auto;" data-detail="https://www.oschina.net/radar?userId=3264690">
+
+                            </div>
+                            <div class="explain">OSC技能雷达</div>
+                            <div class="divide"></div>
+                        </div>
+                        <div class="user-sort">
+                            <div class="title">
+                                <span>分类</span>
+                                <em class="num">共 27 篇</em>
+                            </div>
+                            <div class="sort-list">
+                                <ul>
+                                    <a href="https://my.oschina.net/u/3264690/blog?catalog=5603458">
+                                        <span class="num">11</span>
+                                        <div class="name">
+                                            工作日志
+                                        </div>
+                                    </a>
+                                    <a href="https://my.oschina.net/u/3264690/blog?catalog=5603459">
+                                        <span class="num">16</span>
+                                        <div class="name">
+                                            日常记录
+                                        </div>
+                                    </a>
+                                    <a href="https://my.oschina.net/u/3264690/blog?catalog=5603460">
+                                        <span class="num">0</span>
+                                        <div class="name">
+                                            转贴的文章
+                                        </div>
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-item-9 flex-item-md-9 content" id="search_list">
+
+
+
+
+<!-- 导航和搜索 -->
+                        <div class="navbar flex-item">
+                            <div class="flex-item-7 flex-item-md-7">
+                                <div class="nav-tabs">
+                                    <a class="nav-tab active" href="/home/{{ user }}/">最新</a>
+                                    <a class="nav-tab " href="/homehot/{{ user }}/">最热</a>
+                                </div>
+                            </div>
+                            <div class="flex-item-5 flex-item-md-5">
+                                <form id="searchForm" method="get" action="#" onsubmit="return false;">
+                                    <div class="search">
+                                        <i class="icon svg-icon icon-search-dark"></i>
+                                        <input type="text" name="search" id="search" placeholder="#&gt; 搜索文章">
+                                        <div class="enter">
+                                            <svg viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                                <g>
+                                                    <g transform="scale(0.009765625, 0.009765625)">
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="list blog-list" id="list" data-blog-size="27">
+                            <div class="list-item">
+                                <div class="layout"><div class="layout-right">
+                                    <div class="images">
+                                        <a href="https://my.oschina.net/u/3264690/blog/863439">
+                                            <img src="/static/home_files/223430_rEK7_3264690.png" style="height: 100px;">
+                                        </a>
+                                    </div>
+                                </div>
+                                    <div class="layout-column">
+                                        <ul>
+                                                {% for u in item %}
+                                        <div class="title">
+                                            <span class="status-tag original" title="原创博客"> 原</span>
+                                            <a href="/detail/{{ u.id }}/" class="blog-title">
+                                                <li>{{ u.title }}</li></a>
+                                                    </div>
+                                                    <div class="data-info text-gary">
+                                                    <ul>
+                                                    <li class="read">阅读 <span id="read">{{ u.view_count }}</span></li>
+                                                    <li class="comment">·评论 <span id="comment">{{ u.say_count }}</span></li>
+                                                    <li class="like">·赞 <span id="like">{{ u.love_count }}</span></li>
+                                                    <li>·(<span class="edit"><a href="#">编辑</a></span>&nbsp;|&nbsp;<span class="delete"><a href="javascript:page.delete_blog(863439)">删除</a></span>)
+                                                    </li>
+                                                    </ul>
+                                                    <div class="time">
+                                                        {{u.created_at}} 发布
+                                                    </div>
+                                                    </div>
+                                                {% endfor %}
+                                                </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+{#                            <div class="list-item">#}
+
+
+<!-- 右侧工具条 -->
+<div class="tool-bar blog-tool-bar">
+    <div class="item tool-top" style="display: none;">
+        <a href="https://my.oschina.net/u/3264690/blog#navbar-header" data-href="#navbar-header" class="over">
+            <div class="icon">
+                <i class="icon-svg icon-go-top"></i>
+            </div>
+            <div class="txt">顶部</div>
+        </a>
+    </div>
+</div>
+
+        <script>
+        window.addEventListener("load", function() {
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        });
+    </script>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                        <script type="text/javascript" src="/static/home_files/common.min.js"></script>
+            <script type="text/javascript" src="/static/home_files/blog.min.js"></script>
+
+                    <style type="text/css">
+    .osc-map {
+        font-size: 0;
+        padding: 16px 0 0;
+        background: #FAFAFA;
+    }
+
+    .map-header{
+        font-size: 12px;
+        font-weight: normal;
+        margin: 0 0 10px;
+        height: 18px;
+        color: #4A4A4A;
+    }
+    .map-header.bigger{font-weight: bold;}
+
+    .map-link{
+        font-size: 12px;
+        display: block;
+        line-height: 20px;
+        color: #4A4A4A;
+        transition:color .2s;
+    }
+
+    .map-link:hover{
+        color:#21B351;
+    }
+
+    .wechat{margin: 0 auto;}
+
+    .osc-footer {
+        background: #444444;
+
+    }
+    .content-wrapper{
+        width:1200px;
+        margin:0 auto;
+        height: 36px;
+    }
+    .osc-footer *{
+        font-size: 12px;
+        color: #CFCFCF;
+    }
+</style>
+
+
+   <script type="text/javascript">
+        $(".box").css({width:"100%",maxWidth:"1200px",margin:"0 auto"});
+    </script>
+
+
+
+<!-- Generated by OsChina.NET (init:1[ms],page:28[ms],ip:120.203.25.245) -->
+
+        <script type="text/javascript" src="/static/home_files/radarChart.js"></script>
+
+    </div>
+        {% endblock %}
+
+{% endblock %}

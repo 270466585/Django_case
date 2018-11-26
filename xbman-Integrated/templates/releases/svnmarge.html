@@ -1,0 +1,94 @@
+{% extends 'releases/base.html' %}
+{% block titel %}发布管理系统-合并svn代码页{% endblock %}
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="/static/releases/css/onlyfabu.css" />
+    <link href="/static/releases/css/lib/bootstrap-wysihtml5.css" type="text/css" rel="stylesheet" />
+    <link href="/static/releases/css/lib/uniform.default.css" type="text/css" rel="stylesheet" />
+    <link href="/static/releases/css/lib/select2.css" type="text/css" rel="stylesheet" />
+    <link href="/static/releases/css/lib/bootstrap.datepicker.css" type="text/css" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+    {% csrf_token %}
+       <div class="content">
+    	<div id="jinggao" class="alert alert-danger alert-dismissible" role="alert">
+		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+		  <strong>警告!</strong> 请慎重操作！
+		</div>
+        <!-- upper main stats -->
+        <div id="form-only">
+	        	<textarea id="textrarval" class="form-control" rows="3" name="fname" placeholder="请输入需要合并的分支或准主干链接，多个请以，分隔。如：http://10.10.1.21/svn/hnapay/development/backend/acps/branches/20161102_acps_lijie,http://10.10.1.21/svn/hnapay/development/backend/cps/branches/20161207_cps_yaliceshihuanjing"></textarea>
+			  <button id="onlyfabu" type="button" class="btn btn-info btn-lg" onclick="fbajax(this,4);">开始操作</button>
+        </div>
+		<div class="xianshiqi">
+				<pre id="xianshi">正在初始化中。。。</pre>
+		</div>
+
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="/static/releases/js/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var $canshu=$('#svnmarge')
+            var $span=$('<div class="pointer"> <div class="arrow"></div> <div class="arrow_border"></div> </div>');
+            $($canshu).append($span);
+            $($canshu).addClass("active")
+        });
+    </script>
+    <script>
+        function fbajax(doc,id) {
+            if (document.getElementById('textrarval').value=='')
+            {
+                $("#textrarval").addClass('redxsq');
+                $("#textrarval").attr('placeholder','不得为空!!!  请输入需要合并的分支或准主干链接，如：http://10.10.1.21/svn/hnapay/development/backend/acps/branches/20161102_acps_lijie')
+                return false;
+            }
+            $("#xianshi").text('正在执行中，请等待。。。。');
+            $("#textrarval").removeClass('redxsq');
+            var vals = $('#textrarval').val();
+            $.ajax({
+                url:'/releases/marge/',
+                type:'POST',
+                data:{modify:id,date:vals},
+                success:function (arg) {
+                    var obj = jQuery.parseJSON(arg);
+                    var this_id = $(doc).attr('id');
+                    console.log(this_id);
+                    $('#'+this_id).attr("disabled","disabled");
+                    $("#xianshi").removeClass('redxsq');
+                    $("#xianshi").text(obj.data);
+                    console.log(obj.msg);
+                },
+                error:function () {
+                    $("#xianshi").text('请求失败！');
+                    $("#xianshi").addClass('redxsq');
+                    console.log(obj.msg);
+                }
+            });
+        }
+    </script>
+    <script>
+        var csrftoken = $.cookie('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+    </script>
+    <script type="text/javascript">
+
+		$(document).ready(function(){
+
+			$("#xianshi").text("初始化完成，开始合并代码吧！！");
+		});
+
+    </script>
+{% endblock %}

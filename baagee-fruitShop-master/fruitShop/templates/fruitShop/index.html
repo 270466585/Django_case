@@ -1,0 +1,88 @@
+{% extends 'fruitShop/base_goods.html' %}
+{% block body_content_inner %}
+
+{% load static %}
+    {% block head %}
+<script type="text/javascript" src="{% static 'fruitShop/js/jquery-ui.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'fruitShop/js/slide.js' %}"></script>
+        {% endblock %}
+	<div class="navbar_con">
+		<div class="navbar">
+			<h1 class="fl">全部商品分类</h1>
+			<ul class="navlist fl">
+				<li><a href="">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="center_con clearfix">
+		<ul class="subnav fl">
+            {% for categood in data %}
+			<li><a href="#model{{ categood.cate.id }}" class="{{ categood.cate.className }}">{{ categood.cate.title }}</a></li>
+            {% endfor %}
+		</ul>
+		<div class="slide fl">
+			<ul class="slide_pics">
+                {% for banner in banners %}
+				<li><a href="{{ banner.url }}"><img src="{% static 'fruitShop/upload_images/' %}{{ banner.banner }}" alt="{{ banner.title }}"></a></li>
+                {% endfor %}
+			</ul>
+			<div class="prev"></div>
+			<div class="next"></div>
+			<ul class="points"></ul>
+		</div>
+		<div class="adv fl">
+			<a href="#"><img src="{% static 'fruitShop/images/adv01.jpg' %}"></a>
+			<a href="#"><img src="{% static 'fruitShop/images/adv02.jpg' %}"></a>
+		</div>
+	</div>
+{% for categood in data %}
+	<div class="list_model">
+		<div class="list_title clearfix">
+			<h3 class="fl" id="model{{ categood.cate.id }}">{{ categood.cate.title }}</h3>
+			<div class="subtitle fl">
+				<span>|</span>
+                {% for s in categood.s_goods %}
+				<a href="{% url 'fruitShop:detail' s.id %}">{{ s.name }}</a>
+                    {% endfor %}
+			</div>
+			<a href="{% url 'fruitShop:list' categood.cate.id 1 1 %}" class="goods_more fr" id="fruit_more">查看更多 ></a>
+		</div>
+
+		<div class="goods_con clearfix">
+			<div class="goods_banner fl"><img src="{% static 'fruitShop/upload_images/' %}{{ categood.cate.cover }}"></div>
+			<ul class="goods_list fl">
+                {% for good in categood.goods %}
+				<li>
+					<h4><a href="#">{{ good.name }}</a></h4>
+					<a href="{% url 'fruitShop:detail' good.id %}"><img src="{% static 'fruitShop/upload_images/' %}{{ good.picture }}"></a>
+					<div class="prize">¥ 30.00</div>
+				</li>
+                    {% endfor %}
+			</ul>
+		</div>
+	</div>
+
+    {% endfor %}
+{% endblock %}
+{% block js %}
+{#	<script type="text/javascript">#}
+{#		var oFruit = document.getElementById('fruit_more');#}
+{#		var oShownum = document.getElementById('show_count');#}
+{##}
+{#		var hasorder = localStorage.getItem('order_finish');#}
+{##}
+{#		if(hasorder)#}
+{#		{#}
+{#			oShownum.innerHTML = '2';#}
+{#		}#}
+{##}
+{#		oFruit.onclick = function(){#}
+{#			window.location.href = 'list.html';#}
+{#		}#}
+{#	</script>#}
+{% endblock %}

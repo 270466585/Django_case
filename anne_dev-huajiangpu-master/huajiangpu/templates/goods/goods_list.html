@@ -1,0 +1,68 @@
+{% extends 'common/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+    <title>花匠铺-列表</title>
+{% endblock %}
+
+{% block body %}
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Wrapper -->
+					<div id="wrapper">
+
+						<!-- Panel -->
+							<section class="panel">
+								<div class="intro color2">
+									<h2 class="major">手捧花</h2>
+									<p>手捧花只是一束小小的手捧花，却承载着新人的美满爱情和幸福未来。一款引人注目的手捧花不仅可以使新娘的造型更加完美，而且也是新娘经历幸福时刻的重要见证！</p>
+								</div>
+								<div class="gallery">
+                                    {% for goods in cate_list %}
+									<a href="{% url 'goods:detail' %}?id={{ goods.id }}" class="image filtered span-2-5" data-position="top"><img src="{% static goods.g_image %}" alt="{{ goods.g_name }}" /></a>
+                                    {% endfor %}
+                                </div>
+							</section>
+
+						<!-- Panel -->
+							<section class="panel color4-alt">
+								<div class="intro color4">
+									<h2 class="major">联系我们</h2>
+									<p>您的每一个意见，小花匠都愿意倾听。您的每一个微笑，都是小花匠坚持的动力！<br>让我们一起装点生活，欢迎您联系我们！</p>
+								</div>
+								<div class="inner columns divided">
+									<div class="span-3-25">
+										<form method="post" action="#">
+											<div class="field half">
+												<label for="name">您的名字</label>
+												<input type="text" name="name" id="name" />
+											</div>
+											<div class="field half">
+												<label for="email">您的邮箱</label>
+												<input type="email" name="email" id="email" />
+											</div>
+											<div class="field">
+												<label for="message">您想说的话</label>
+												<textarea name="message" id="message" rows="4"></textarea>
+											</div>
+											<ul class="actions">
+												<li><input type="submit" value="发送" class="button special" /></li>
+											</ul>
+										</form>
+									</div>
+									<div class="span-1-5">
+
+										<ul class="contact-icons color1">
+                                            <h3 class="major">微信号</h3>
+                                            <img style="height: 300px; width: 230px" src="/static/images/wx.jpg"/>
+										</ul>
+									</div>
+								</div>
+							</section>
+
+					</div>
+
+			</div>
+{% endblock body %}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        {% include 'nav.html' %}
+        <div class="row">
+            <a href="/addProject/" class="btn btn-primary btn-lg" role="button">新增项目</a>
+            <a href="/addPlan/" class="btn btn-primary btn-lg" role="button">新增计划</a>
+            <a href="/addTurn/" class="btn btn-primary btn-lg" role="button">新增轮次</a>
+        </div>
+        <div class="row">
+            <p></p>
+        </div>
+        <table class="table table-striped table-hover table-bordered">
+            <tr>
+                <td>序号</td>
+                <td>测试类别</td>
+                <td>项目名称</td>
+                <td>计划名称</td>
+                <td>轮次名称</td>
+                <td>测试内容概要</td>
+                <td>测试人员</td>
+                <td>测试开始日期</td>
+                <td>测试结束日期</td>
+                <td>工时</td>
+                <td>备注</td>
+                <td>删除</td>
+            </tr>
+            {% for i in data %}
+                <tr>
+                    <td>{{ i.0 }}</td>
+                    <td>{{ i.1 }}</td>
+                    <td>{{ i.2 }}</td>
+                    <td>{{ i.3 }}</td>
+                    <td>{{ i.4 }}</td>
+                    <td>{{ i.5 }}</td>
+                    <td>{{ i.6 }}</td>
+                    <td>{{ i.7|date:"Y-m-d" }}</td>
+                    <td>{{ i.8|date:"Y-m-d" }}</td>
+                    <td>{{ i.9 }}</td>
+                    <td>{{ i.10 }}</td>
+                    <td><a href="/delete/{{ i.11 }}/">删除</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>

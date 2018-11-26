@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+
+{% block nav %}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav" style="margin-top:0">
+          <li><a href="/index"><span class="glyphicon glyphicon-home"></span> 主页 </a></li>
+          <li class="active"><a href="/article"><span class="glyphicon glyphicon-book"></span> 文章 </a></li>
+          <li><a href="/"><span class="glyphicon glyphicon-headphones"></span> 电台 </a></li>
+          <li><a href="/about"><span class="glyphicon glyphicon-info-sign"></span> 关于 </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+            <li><a href="/PersonalCenter/">个人信息</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/xuser/">我的文章</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">我的电台</a></li>
+          </ul>
+          </li>
+       </ul>
+    </div>
+{% endblock %}
+
+{% block jubmo %}
+  <div class="jumbotron">
+    <div class="container">
+      <h2>{{ title }}</h2>
+      <p>这是一个轻量、灵活的组件，它能延伸至整个浏览器视口来展示网站上的关键内容。</p>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+    <div id="information">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="container-fluid" style="padding:0;">
+
+            {% for posts in posts %}
+            <div class="row info-content">
+              <div class="col-md-5 col-sm-5 col-xs-5">
+                <img src="{{ posts.img_link }}" class="img-responsive" alt="">
+              </div>
+              <div class="col-md-7 col-sm-7 col-xs-7">
+                <a href="/detail/{{ posts.id }}/">{{posts.title}}</a>
+                <p class="hidden-xs">{{ posts.desc }}</p>
+               <a class="btn btn-link" href="/detail/{{ posts.id }}/" role="button"><h5>继续阅读>>></h5></a>
+              </div>
+            </div>
+            {% endfor %}
+
+            </div>
+          </div>
+
+                <aside class="col-md-4 sidebar">
+                <!-- start widget -->
+            <!-- end widget -->
+
+            <!-- start tag cloud widget -->
+            <div class="widget">
+                <h4 class="title">社区</h4>
+                <div class="content community">
+                    <p>QQ群：437747312</p>
+                </div>
+            </div>
+            <!-- end tag cloud widget -->
+
+            <!-- start widget -->
+            <div class="widget">
+                <h4 class="title">热门文章</h4>
+
+            </div>
+            <!-- end widget -->
+
+
+            <!-- start tag cloud widget -->
+            <div class="widget">
+                <h4 class="title">标签云</h4>
+                <div class="content tag-cloud">
+            <a href="#">摇滚</a>
+            <a href="#">流行</a>
+            <a href="#">古典</a>
+            <a href="#">民谣</a>
+            <a href="#">电子</a>
+                </div>
+            </div>
+        </aside>
+
+
+        </div>
+          <nav aria-label="Page navigation">
+            <ul class="pagination">
+            <li>
+           {% if posts.has_previous %}
+            <a href='?page={{ posts.previous_page_number }}' aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            </a>
+            {% endif %}
+            </li>
+            {% for page in  posts.paginator.page_range %}
+                <li><a href='?page={{ page }}'>{{ page }}</a></li>
+{#                <li><a href="#">2</a></li>#}
+{#                <li><a href="#">3</a></li>#}
+{#                <li><a href="#">4</a></li>#}
+{#                <li><a href="#">5</a></li>#}
+            {% endfor %}
+            <li>
+            {% if posts.has_next %}
+            <a href='?page={{ posts.next_page_number }}' aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            </a>
+            {% endif %}
+            </li>
+            </ul>
+          </nav>
+      </div>
+    </div>
+
+
+{#   {% if posts.has_previous %}#}
+{#        <a class='paginator' title='上一页' href='?page={{ posts.previous_page_number }}'><span>&lt;&lt;</span></a>#}
+{#    {% endif %}#}
+{#    {% for page in  posts.paginator.page_range %}#}
+{#     {% if page = posts.number %}#}
+{#         <a class='paginator_current' title='当前页:{{ page }}'><span>{{ page }}</span></a>#}
+{#     {% else %}#}
+{#         <a class='paginator' href='?page={{ page }}' title='{{ page }}'><span>{{ page }}</span></a>#}
+{#     {% endif %}#}
+{#    {% endfor %}#}
+{# {% if posts.has_next %}#}
+{#     <a class='paginator' title='下一页' href='?page={{ posts.next_page_number }}'><span>&gt;&gt;</span></a>#}
+{# {% endif %}#}
+
+<footer id="footer" >
+    <div class="container">
+      <p>Powered By Django</p>
+    </div>
+</footer>
+
+{% endblock %}
+

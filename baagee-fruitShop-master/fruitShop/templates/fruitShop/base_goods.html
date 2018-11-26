@@ -1,0 +1,45 @@
+{% extends 'fruitShop/base_buttom_top.html' %}
+{% block body_content %}
+{#    index.detail,list公用模板#}
+{% load static %}
+    <div class="search_bar clearfix">
+		<a href="/" class="logo fl"><img src="{% static 'fruitShop/images/logo.png' %}"></a>
+		<div class="search_con fl">
+            <form action="/search/" method="get">
+			<input type="text" class="input_text fl" name="q" value="{{ query }}" placeholder="搜索商品">
+			<input type="submit" class="input_btn fr" value="搜索">
+                </form>
+		</div>
+		<div class="guest_cart fr">
+			<a href="{% url 'fruitShop:cart' %}" class="cart_name fl">我的购物车</a>
+			<div class="goods_count fl" id="show_count">0</div>
+		</div>
+	</div>
+    {% block body_content_inner %}
+
+        {% endblock %}
+    <script>
+    getMyChartCount();
+    function getMyChartCount() {
+        $.post('{% url 'fruitShop:getcartcount' %}',
+            {'csrfmiddlewaretoken':'{{ csrf_token }}'},
+            function(res){
+                $("#show_count").html(res.count)
+        })
+    }
+    function addCart(good_id) {
+        $.post('{% url 'fruitShop:addcart' %}',
+            {'id':good_id,'csrfmiddlewaretoken':'{{ csrf_token }}'},
+            function(res){
+                if(res.status==1){
+                    getMyChartCount()
+                }else if(res.status==3){
+                    alert(res.msg)
+                }else if (res.status==0){
+                    alert(res.msg);
+                    location.href='{% url 'fruitShop:user_login' %}';
+                }
+        })
+    }
+    </script>
+{% endblock %}

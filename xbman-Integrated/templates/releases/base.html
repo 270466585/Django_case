@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{% block titel %}{% endblock %}</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {% block head %}{% endblock %}
+	<link rel="icon" href="/static/releases/images/logo.png" mce_href="/static/releases/images/logo.png" type="image/x-icon">
+
+    <!-- bootstrap -->
+    <link href="/static/releases/css/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="/static/releases/css/bootstrap/bootstrap-responsive.css" rel="stylesheet" />
+    <link href="/static/releases/css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+    <!-- libraries -->
+    <link href="/static/releases/css/lib/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css" />
+    <link href="/static/releases/css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+
+    <!-- global styles -->
+    <link rel="stylesheet" type="text/css" href="/static/releases/css/layout.css" />
+    <link rel="stylesheet" type="text/css" href="/static/releases/css/elements.css" />
+    <link rel="stylesheet" type="text/css" href="/static/releases/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/static/releases/css/nprogress.css" />
+
+    <!-- this page specific styles -->
+    {% block link %}{% endblock %}
+    <!-- open sans font -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css' />
+
+    <!-- lato font -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css' />
+
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+
+    <!-- navbar -->
+    <div class="navbar navbar-inverse">
+        <div class="navbar-inner">
+            <button type="button" class="btn btn-navbar visible-phone" id="menu-toggler">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!--<a class="brand" href="index.html"><img src="img/logo.png" /></a>-->
+            <a class="brand" href="/releases/index/"><img src="/static/releases/images/logo.png"/><span>XBMAN-发布管理系统</span></a>
+
+            <ul class="nav pull-right">
+{#                <li class="settings hidden-phone">#}
+{#                    <a href="#myModal1" role="button" rel="tooltip"  data-toggle="modal" data-placement="bottom" title="修改密码">#}
+{#                        <a href="#myModal" role="button" class="btn" data-toggle="modal">查看演示案例</a>#}
+{#                        <i class="icon-cog"></i>#}
+{#                    </a>#}
+{#                    <div id="myModal1" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">#}
+{#                      <div class="modal-header">#}
+{#                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>#}
+{#                        <h3 id="myModalLabel">修改密码</h3>#}
+{#                      </div>#}
+{#                      <div class="modal-body">#}
+{#                        <form class="form-horizontal" action="/checkpasswork/" method="post" id="nameform">#}
+{#                            {% csrf_token %}#}
+{#                            <div class="control-group">#}
+{#                                <label class="control-label" for="id_username">用户名:</label>#}
+{#                                <div class="controls">#}
+{#                                    <input class="form-control" id="id_username" name="username" placeholder="请输入用户名" type="text" />#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="control-group">#}
+{#                                <label class="control-label" for="oldpassword">原密码</label>#}
+{#                                <div class="controls">#}
+{#                                    <input class="form-control" id="oldpassword" name="oldpassword" placeholder="请输入原密码" type="password" />#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="control-group">#}
+{#                                <label class="control-label" for="id_password">新密码</label>#}
+{#                                <div class="controls">#}
+{#                                    <input class="form-control" id="id_password" name="password" placeholder="请输入新密码" type="password" />#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </form>#}
+{#                      </div>#}
+{#                      <div class="modal-footer">#}
+{#                        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>#}
+{#                        <button class="btn btn-primary" form="nameform" value="Submit">提交</button>#}
+{#                      </div>#}
+{#                    </div>#}
+{#                </li>#}
+                <li class="settings hidden-phone">
+                    <a href="/logout/" role="button" data-toggle="tooltip" data-placement="bottom" title="退出">
+                        <i class="icon-share-alt"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end navbar -->
+
+    <!-- sidebar -->
+    <div id="sidebar-nav">
+        <ul id="dashboard-menu">
+            <li id="nav1" >
+                <a href="/releases/index/">
+                    <i class="icon-home"></i>
+                    <span>图表</span>
+                </a>
+            </li>
+            <li id="nav2">
+                <a href="/releases/relemanager/">
+                    <i class="icon-signal"></i>
+                    <span>发布管理</span>
+                </a>
+            </li>
+            <li id="fbmodify">
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-group"></i>
+                    <span>发布配置</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul id="fbmodifyul" class="submenu">
+                    <li><a id="lvsmodify" href="/releases/lvsmodify/">LVS配置</a></li>
+                    <li><a id="jenkinsmodify" href="/releases/jenkinsmodify/">jenkins配置</a></li>
+                    <li><a id="publishmodify" href="/releases/publishmodify/">发布项目配置</a></li>
+                    <li><a id="hostsmodify" href="/releases/hostsmodify/">绑定hosts配置</a></li>
+                </ul>
+            </li>
+            <li id="onlymo">
+                <a class="dropdown-toggle" href="#">
+                    <i class="icon-edit"></i>
+                    <span>单一操作</span>
+                    <i class="icon-chevron-down"></i>
+                </a>
+                <ul id="onlyrele" class="submenu">
+                    <li><a id="onlyrele2" href="/releases/onlyrelease/">只发布</a></li>
+                    <li><a id="onlylvs" href="/releases/onlylvs/">只操作LVS</a></li>
+                </ul>
+            </li>
+            <li id="svnmarge">
+                <a href="/releases/svnmarge/">
+                    <i class="icon-inbox"></i>
+                    <span>合并svn代码</span>
+                </a>
+            </li>
+            <li id="fabujilu">
+                <a href="/releases/tables/">
+                    <i class="icon-th-large"></i>
+                    <span>发布记录</span>
+                </a>
+            </li>
+            <li >
+                <a href="/index/">
+                    <i class="icon-signout"></i>
+                    <span>返回主页</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- end sidebar -->
+
+
+{% block body %}{% endblock %}
+    <footer class="footer navbar-fixed-bottom ">
+        <div class=" dilan">
+            <span>XBman©版权所有</span>
+        </div>
+    </footer>
+
+	<!-- scripts -->
+    <!--<script src="http://code.jquery.com/jquery-latest.js"></script>-->
+	<script src="/static/releases/js/jquery-3.1.0.min.js"></script>
+    <script src="/static/releases/js/bootstrap.min.js"></script>
+    <script src="/static/releases/js/jquery-ui-1.10.2.custom.min.js"></script>
+    <!-- knob -->
+    <script src="/static/releases/js/jquery.knob.js"></script>
+    <!-- flot charts -->
+    <script src="/static/releases/js/jquery.flot.js"></script>
+    <script src="/static/releases/js/jquery.flot.stack.js"></script>
+    <script src="/static/releases/js/jquery.flot.resize.js"></script>
+    <script src="/static/releases/js/theme.js"></script>
+    <script src="/static/releases/js/nprogress.js"></script>
+    {% block javascript %}{% endblock %}
+		<script src="/static/releases/js/highcharts.js"></script>
+		<script src="/static/releases/js/exporting.js"></script>
+    <script>
+        NProgress.start();
+    </script>
+    <script type="text/javascript">
+            $(document).ready(function(){
+                NProgress.done();
+            });
+        </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+{% extends 'common/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+	<title>花匠铺-用户登录</title>
+{% endblock %}
+
+{% block body %}
+	<!-- Page Wrapper -->
+	<div id="page-wrapper">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Panel -->
+			<section class="panel color2-alt">
+				<div class="intro color2">
+					<h2 class="major">登录</h2>
+					<p>欢迎您回来</p>
+                    <br>
+                    还没有账号<a href="{% url 'users:register' %}"><strong>去注册</strong></a>
+				</div>
+				<div class="inner columns aligned">
+					<div class="span-4-5">
+						<h3 class="major">请登录</h3>
+						<form method="post" action="">
+							{% csrf_token %}
+                            <div class="field third" id="user_login">
+								<label for="demo-name">姓名</label>
+								<input type="text" name="user_name" id="user_name" placeholder="用户名" />
+							</div>
+							<div class="field third" id="user_login_pwd">
+								<label for="user_pass">密码</label>
+								<input type="text" name="user_pass" id="user_pass" placeholder="密码" />
+							</div>
+							<!-- <div class="field third" ></div> -->
+
+							<div class="field third" id="phone_login">
+								<input type="text" name="" id="user_phone" placeholder="请输入您的手机号码" />
+							</div>
+							<div class="field quarter" id="phone_login_btn">
+								<input type="button" value="发送验证码" class="special color2" />
+							</div>
+							<div class="field" id="phone_login_code">
+								<input type="email" name="" id="user_code" value="" placeholder="验证码" />
+							</div>
+
+
+							<div class="field" id="login_method">
+								<label for="demo-email">
+									<a href="javascript:;">切换登录方式</a>
+								</label>
+							</div>
+
+							<div class="field quarter">
+								<input type="checkbox" id="demo-human" name="user_memb" class="color2" checked />
+								<label for="demo-human">记住用户名</label>
+							</div>
+							<ul class="actions field">
+								<li>
+									<input type="submit" value="提交" class="special color2" />
+								</li>
+							</ul>
+						</form>
+					</div>
+			</section>
+
+			<!-- Copyright -->
+			<div class="copyright">&copy; 安徽省黄山市歙县:
+				<a href="https://html5up.net">花匠铺</a>.</div>
+
+			</div>
+
+		</div>
+
+{% endblock body %}
+
+{% block footer_js %}
+    <script>
+			$(function () {
+				$('#phone_login, #phone_login_btn, #phone_login_code').hide();
+				$('#login_method').click(function () {
+					login_mothed_change()
+				});
+
+				function login_mothed_change() {
+					if ($("#phone_login").is(":hidden")) {
+						$('#phone_login, #phone_login_btn, #phone_login_code').show();
+						$('#user_login, #user_login_pwd').hide();
+					} else {
+						$('#phone_login, #phone_login_btn, #phone_login_code').hide();
+						$('#user_login, #user_login_pwd').show();
+					}
+				}
+			})
+		</script>
+{% endblock footer_js %}

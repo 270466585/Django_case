@@ -1,0 +1,236 @@
+{% extends 'releases/base.html' %}
+{% block titel %}发布管理系统-发布页{% endblock %}
+{% block link %}
+    <link rel="stylesheet" type="text/css" href="/static/releases/css/fabuye.css" />
+    <link href="/static/releases/css/lib/morris.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/releases/css/compiled/chart-showcase.css" type="text/css" media="screen" />
+
+{% endblock %}
+
+{% block body %}
+    {% csrf_token %}
+    	<!-- main container -->
+    <div class="content">
+        <!-- upper main stats -->
+            <div id="main-stats">
+                <div class="row-fluid stats-row">
+                    <div class="span3 stat">
+                        <div class="data">
+                            <span id="zhuangtai" class="number">未发布</span>
+                            当前状态
+                        </div>
+                        <span class="date">keepalived</span>
+                    </div>
+                    <div class="span3 stat">
+                        <div class="data">
+                            <span id="ipvsadm" class="number">{{ modify }}</span>
+                            <span data-toggle="tooltip" data-placement="top" title="点击获取IPVSADM数" style="cursor:pointer" onclick="ipvsajax();">ipvsadm数</span>
+                        </div>
+                        <span class="date">ipvsadm -ln</span>
+                    </div>
+                    <div class="span3 stat">
+                        <div class="data">
+                            <span id="panduan" class="number">成功</span>
+                            上次发布
+                        </div>
+                        <span class="date">success or fail</span>
+                    </div>
+                    <div class="span3 stat last">
+                        <div class="data">
+                            <span id="current-time" class="number"></span>
+                            当前时间
+                        </div>
+                        <span class="date">times</span>
+                    </div>
+                </div>
+            </div>
+            <!-- end upper main stats -->
+            <div class="block1">
+                <h4 id="hehe" class="icon-legal"> 操 作 区</h4>
+                <button id="lvsmodify1" type="button" class="btn btn-primary " onclick="xiugai();Doajax(this,1);">下第一组</button>
+                <button id="lvsmodify2" type="button" class="btn btn-primary " onclick="xiugai();Doajax(this,2);">上一下二</button>
+                <button id="lvsmodify3" type="button" class="btn btn-primary " onclick="xiugai();Doajax(this,3);">上第二组</button>
+                <button id="fabu1" type="button" class="btn btn-warning " onclick="xiugai();fbajax(this,1);">发第一组</button>
+                <button id="fabu2" type="button" class="btn btn-warning " onclick="xiugai();fbajax(this,2);">发第二组</button>
+{#                <button id="host1" type="button" class="btn btn-success" onclick="xiugai();hostsajax(this,1);">hosts1组</button>#}
+{#                <button id="host2" type="button" class="btn btn-success" onclick="xiugai();hostsreductionajax(this,2);">hosts2组</button>#}
+                <div style="margin-left: 0" class="hostsos btn-group">
+                  <button id="host1" class="btn btn-success" onclick="xiugai();hostsajax(this,1);">绑1</button>
+                  <button id="perate1" class="btn btn-danger" onclick="xiugai();hostsreductionajax(this,1);">解绑</button>
+                </div>
+                <div style="margin-left: 0"  class="hostsos btn-group">
+                  <button id="host2" class="btn btn-success" onclick="xiugai();hostsajax(this,2);">绑2</button>
+                  <button id="perate2" class="btn btn-danger" onclick="xiugai();hostsreductionajax(this,2);">解绑</button>
+                </div>
+            </div>
+            <div class="xianshiqi">
+                <pre class="" id="xianshi">正在初始化中。。。</pre>
+            </div>
+    </div>
+    <!-- end main container -->
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="/static/releases/js/jquery.cookie.js"></script>
+	<script src="/static/releases/js/raphael.min.js"></script>
+    <script src="/static/releases/js/morris.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var $canshu=$('#nav2')
+            var $span=$('<div class="pointer"> <div class="arrow"></div> <div class="arrow_border"></div> </div>');
+            $($canshu).append($span);
+            $($canshu).addClass("active")
+        });
+    </script>
+    <script>
+        var csrftoken = $.cookie('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        function xiugai() {
+             $("#xianshi").text('正在执行中，请等待。。。。');
+        }
+        function Doajax(doc,id) {
+            $.ajax({
+                url:'/releases/odline/',
+                type:'POST',
+                data:{modify:id},
+                success:function (arg) {
+                    var obj = jQuery.parseJSON(arg);
+                    if(id=='1'){
+                        $("#zhuangtai").text("1down");
+                    }else if(id=='2'){
+                        $("#zhuangtai").text("1up2down");
+                    }else{
+                        $("#zhuangtai").text("2up");
+                    }
+                    var this_id = $(doc).attr('id');
+                    console.log(this_id);
+                    $('#'+this_id).attr("disabled","disabled");
+                    $("#xianshi").removeClass('redxsq');
+                    $("#xianshi").text(obj.data);
+                    $('#panduan').removeAttr("style");
+                    $('#panduan').text("成功");
+                    $('#ipvsadm').text(obj.ipvsadm);
+                    console.log(obj.status);
+                },
+                error:function () {
+                    $("#xianshi").text('请求失败！');
+                    $("#xianshi").addClass('redxsq');
+                    $('#panduan').text("失败");
+                    $('#panduan').css("color","red");
+                    console.log('failed');
+                }
+            });
+        }
+    </script>
+    <script>
+        function fbajax(doc,id) {
+            $.ajax({
+                url:'/releases/onrelease/',
+                type:'POST',
+                data:{modify:id},
+                success:function (arg) {
+                    var obj = jQuery.parseJSON(arg);
+                    var this_id = $(doc).attr('id');
+                    console.log(this_id);
+                    $('#'+this_id).attr("disabled","disabled");
+                    $("#xianshi").removeClass('redxsq');
+                    $("#xianshi").text(obj.data);
+                    $('#panduan').removeAttr("style");
+                    $('#panduan').text("成功");
+                    console.log(obj.msg);
+                },
+                error:function () {
+                    $("#xianshi").text('请求失败！');
+                    $("#xianshi").addClass('redxsq');
+                    $('#panduan').text("失败");
+                    $('#panduan').css("color","red");
+                    console.log(obj.msg);
+                }
+            });
+        }
+    </script>
+    <script>
+        function ipvsajax() {
+            $.ajax({
+                url:'/releases/ipvsadm/',
+                type:'POST',
+                success:function (arg) {
+                    var obj = jQuery.parseJSON(arg);
+                    $("#ipvsadm").text(obj.data);
+                    console.log(obj.msg);
+                },
+                error:function () {
+                    $("#ipvsadm").text('请求失败！');
+                    console.log(obj.msg);
+                }
+            });
+        }
+    </script>
+    <script>
+        function hostsajax(doc,id) {
+            $.ajax({
+                url:'/releases/hostsoperate/',
+                type:'POST',
+                data:{modify:id},
+                success:function (arg) {
+                    var obj = jQuery.parseJSON(arg);
+                    var this_id = $(doc).attr('id');
+                    console.log(this_id);
+                    $('#'+this_id).attr("disabled","disabled");
+                    $("#xianshi").removeClass('redxsq');
+                    $("#xianshi").text(obj.data);
+                    console.log(obj.msg);
+                },
+                error:function () {
+                    $("#xianshi").text('请求失败！');
+                    $("#xianshi").addClass('redxsq');
+                    console.log(obj.msg);
+                }
+            });
+        };
+        function hostsreductionajax(doc,id) {
+                $.ajax({
+                    url:'/releases/hostsreduction/',
+                    type:'POST',
+                    data:{modify:id},
+                    success:function (arg) {
+                        var obj = jQuery.parseJSON(arg);
+                        var this_id = $(doc).attr('id');
+                        console.log(this_id);
+                        $('#'+this_id).attr("disabled","disabled");
+                        $("#xianshi").removeClass('redxsq');
+                        $("#xianshi").text(obj.data);
+                        console.log(obj.msg);
+                    },
+                    error:function () {
+                        $("#xianshi").text('请求失败！');
+                        $("#xianshi").addClass('redxsq');
+                        console.log(obj.msg);
+                    }
+                });
+            };
+    </script>
+    <script type="text/javascript">
+        setInterval(function() {
+        var now = (new Date()).toLocaleTimeString();
+        $('#current-time').text(now);
+        }, 1000);
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#xianshi").text("初始化完成，开始发布吧！！");
+        });
+    </script>
+
+{% endblock %}

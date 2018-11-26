@@ -1,0 +1,133 @@
+{% extends 'common/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+	<title>花匠铺-确认订单</title>
+{% endblock %}
+
+{% block body %}
+	<!-- Page Wrapper -->
+	<div id="page-wrapper">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Panel (Banner) -->
+			<section class="panel banner right">
+				<div class="content color0 span-2-75">
+					<h1 class="major">寄送到</h1>
+					<p>上海市 浦东新区 万香科技园7517
+						<br>
+						<strong>13044998888</strong>
+						<br>
+						<strong>张三丰</strong>
+					</p>
+					<br>
+					<h3>
+						<a href="#" target="_blank" class="button">修改收件地址</a>
+					</h3>
+				</div>
+				<div class="image filtered span-2-75" data-position="25% 25%">
+					<img src="images/user.jpg" alt="" />
+				</div>
+			</section>
+
+			<!-- Panel -->
+			<section class="panel color2-alt">
+				<div class="inner columns aligned">
+					<div class="span-3">
+						<h3 class="major">订单号：193849384</h3>
+						<h4>2017/2/1 12:30:41</h4>
+						<!-- <input style="width:30px; height:30px;border: 1px solid red;" type="radio"/> -->
+						<div class="table-wrapper">
+							<table>
+								<thead>
+									<tr>
+										<th></th>
+										<th>名称</th>
+										<th>数量</th>
+										<th>单价</th>
+										<th>总价</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><input style="opacity: 1; -webkit-appearance:checkbox;" type="checkbox" checked/></td>
+										<td>木兰花</td>
+										<td>4</td>
+										<td>1.99</td>
+										<td>7.96</td>
+									</tr>
+									<tr>
+											<td><input style="opacity: 1; -webkit-appearance:checkbox;" type="checkbox" checked/></td>
+											<td>大叶兰</td>
+										<td>2</td>
+										<td>3.99</td>
+										<td>7.98</td>
+									</tr>
+									<tr>
+											<td><input style="opacity: 1; -webkit-appearance:checkbox;" type="checkbox" checked/></td>
+											<td>玫瑰</td>
+										<td>1</td>
+										<td>9.99</td>
+										<td>9.99</td>
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="3">
+											<span style="float:left">
+											共<strong>7</strong>件商品，总金额
+											<strong>25.93</strong>元
+											</span>
+										</td>
+									<td colspan="2">
+										<a style="float:right" href="#" class="button">提交订单</a>
+									</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Panel -->
+                            <!-- {% if comment %} -->
+							<section class="panel">
+									<div class="intro color2">
+										<h2 class="major">买家秀</h2>
+										<p>风信子的种球是紫红色的，种球下面是白色的须根。一天天过去了，风信子的根开始越长越长，远看像一只长须章鱼，又好似老人的白胡子</p>
+									</div>
+									<div class="gallery">
+									<!-- {% for goods in cate_list %} -->
+										<a href="#" class="image filtered span-2-5" data-position="top"><img src="images/5.jpg" alt="" /></a>
+										<a href="#" class="image filtered span-2-5" data-position="top"><img src="images/7.jpg" alt="" /></a>
+										<a href="#" class="image filtered span-2-5" data-position="top"><img src="images/8.jpg" alt="" /></a>
+									<!-- {% endfor %} -->
+									</div>
+								</section>
+								<!-- {% endif %} -->
+
+			<div class="copyrights">Collect from
+				<a href="http://www.cssmoban.com/">手机网站模板</a>
+			</div>
+
+			<!-- Panel -->
+			<section class="panel color2-alt">
+				<div class="intro color2">
+					<h2 class="major">感谢</h2>
+					<p> 放飞一只白鸽给你，捎上我的思念，捎上我的祝福，飘向你的心海，飘向你的生活，愿你快快乐乐地面对每个晨钟暮鼓，高高兴兴地面对花开花落。</p>
+				</div>
+			</section>
+
+			<!-- Copyright -->
+			<div class="copyright">&copy; Untitled. Design:
+				<a href="https://html5up.net">HTML5 UP</a>.</div>
+
+		</div>
+
+	</div>
+
+{% endblock body %}

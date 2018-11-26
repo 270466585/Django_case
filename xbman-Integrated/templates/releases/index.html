@@ -1,0 +1,79 @@
+{% extends 'releases/base.html' %}
+{% block titel %}发布管理系统-图表页{% endblock %}
+{% block head %}<meta http-equiv="refresh" content="300">{% endblock %}
+{% block link %}<link rel="stylesheet" href="/static/releases/css/compiled/index.css" type="text/css" media="screen" />{% endblock %}
+{% block body %}
+	<!-- main container -->
+    <div class="content">
+        <!-- settings changer -->
+            <div id="pad-wrapper">
+
+                <!-- statistics chart built with jQuery Flot -->
+                <div class="row-fluid chart">
+                    <!--<h4>
+                                                发布次数
+                    </h4>-->
+                    <div class="span12">
+                        <div id="statsChart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                    </div>
+                </div>
+                <!-- end statistics chart -->
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+			$(function () {
+			    $('#statsChart').highcharts({
+			        title: {
+			            text: '发布次数统计（{{ date }}年）',
+			            x: -20 //center
+			        },
+//			        subtitle: {
+//			            text: 'Source: WorldClimate.com',
+//			            x: -20
+//			        },
+			        xAxis: {
+			            categories: ['一月', '二月', '三月', '四月', '五月', '六月',
+			                '七月', '八月', '九月', '十月', '十一月', '十二月']
+			        },
+			        yAxis: {
+			            title: {
+			                text: '次数'
+			            },
+//			            plotLines: [{
+//			                value: 0,
+//			                width: 3,
+//			                color: '#808080'
+//			            }]
+			        },
+			        tooltip: {
+			            valueSuffix: '次'
+			        },
+			        legend: {
+			            layout: 'vertical',
+			            align: 'right',
+			            verticalAlign: 'middle',
+			            borderWidth: 0
+			        },
+			        series: [{
+			            name: '常规发布',
+			            data: {{ routine }}
+			        }, {
+			            name: '非常规发布',
+			            data: {{ notroutine }}
+			        }]
+			    });
+			});
+		</script>
+    <script type="text/javascript">
+			$(document).ready(function(){
+				var $canshu=$('#nav1');
+				var $span=$('<div class="pointer"> <div class="arrow"></div> <div class="arrow_border"></div> </div>');
+				$($canshu).append($span);
+				$($canshu).addClass("active");
+		});
+		</script>
+{% endblock %}

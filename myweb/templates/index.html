@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-inverse" style="margin-top:0">
+          <li class="active"><a href="/index"><span class="glyphicon glyphicon-home"></span> 主页 </a></li>
+          <li><a href="/article"><span class="glyphicon glyphicon-book"></span> 文章 </a></li>
+          <li><a href="/"><span class="glyphicon glyphicon-headphones"></span> 电台 </a></li>
+          <li><a href="/about"><span class="glyphicon glyphicon-info-sign"></span> 关于 </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-inverse navbar-right">
+            {% if not request.user.is_authenticated %}
+          <li><a href="/login/"><span class=""></span> 登录 </a></li>
+          <li><a href="/register/"><span class=""></span> 注册 </a></li>
+            {% else %}
+          <li><a href="/#/"><span class=""></span> 你好！ </a></li>
+          <li><a href="/logout/"><span class=""></span> 退出 </a></li>
+            {% endif %}
+
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+            <li><a href="/PersonalCenter/">个人信息</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/xuser/">我的文章</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">我的电台</a></li>
+          </ul>
+          </li>
+       </ul>
+    </div>
+{% endblock %}
+
+{% block jubmo %}
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Hello,World!</h1>
+      <p>这是一个轻量、灵活的组件，它能延伸至整个浏览器视口来展示网站上的关键内容。</p>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block content %}
+ <section id="what-we-do" class="what-we-do section container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-4">
+            <div class="slogan">
+                <p>所有孤独</p>
+                <p>都是船上的酒</p>
+                <p>离开大陆</p>
+                <p>远洋漂流</p>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-md-8">
+            <div class="summary">
+                <p>南船北海，一个新兴网络电台。</p>
+                <p>由一群热爱文学与音乐的朋友共同创建于2014.7.12。</p>
+                <p>节目类型多样，有为数不多的听众。</p>
+                <p>这是一艘处在社会主义新时代下裹挟着正义与希望，流露着朝气与内涵，散发着新文学与新思想气息的伟大海盗船。</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="jumbotron1">
+    <div class="container">
+        <h3 class="text-center">Let's start</h3>
+        <div class="row">
+            <div class="col-xs-12 col-md-3 col-sm-6  highlight">
+                <div class="h-caption">
+                    <a href="#"><i class="fa fa-at fa-5x"></i></a><h4>邻居的耳朵</h4>
+                </div>
+
+                <div class="h-body text-center">
+                    <p>在邻居的耳朵网站发布第一个电台节目，迄今已发布多个，并拥有了少量的粉丝。</p>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-3 col-sm-6  highlight">
+                <div class="h-caption"><a href="#"><span class="glyphicon glyphicon-music"></span><h4>网易云音乐</h4></a></div>
+                <div class="h-body text-center">
+                    <p>在网易云音乐上传第一个电台节目《半生与秋树信》，之后陆续上传，收获了为数不多的听众。</p>
+                </div>
+            </div>
+
+
+            <div class="col-xs-12 col-md-3 col-sm-6  highlight">
+                <div class="h-caption"><a href="#" target="_blank"><i class="fa fa-list-alt fa-5"></i></a><h4>荔枝 FM</h4>
+                </div>
+                <div class="h-body text-center">
+                    <p>在荔枝FM上线</p>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-3 col-sm-6  highlight">
+                <div class="h-caption">
+                <a class="social-btn bspopover" data-toggle="popover" data-placement="top" data-trigger="hover" data-html="true" data-content="<img src=images/wechat.jpg style='width: 140px; height: 140px;'>" data-original-title="" title="">
+                    <i class="fa fa-weixin fa-5"></i>
+                </a><h4>微信公众号</h4>
+                </div>
+                <div class="h-body text-center">
+                    <p>微信公众号上线</p>
+                </div><!-- /Highlights -->
+            </div>
+
+        </div> <!-- /row  -->
+
+    </div>	<!-- container -->
+</section>
+<section class="section jumbotron the-boat-mean">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-2 col-md-2">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="h-body text-center">
+                            <div>
+                                南船北海
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6">
+                        <div class="h-body text-center">
+                            <div>阿白</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-10">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <div class="h-body text-center">
+                            <div>你大概常說</div>
+                            <div>這個世界太小了</div>
+                            <div>所有的地方都標在地圖上</div>
+                            <div>你只能用已有的認知去觸碰和抵達</div>
+                            <div>有一種即使去了</div>
+                            <div>也無法逃脫任何事的感覺</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <div class="h-body text-center">
+                            <div>所以</div>
+                            <div>我們下定決心出發</div>
+                            <div>從不知其所處的名為北海之地</div>
+                            <div>乘不知其所行的名為南船之輪</div>
+                            <div>離開大陸 遠洋漂流</div>
+                            <div>沒錯 漂流</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <div class="h-body text-center">
+                            <div>我們又並非用來趕路的巨帆</div>
+                            <div>有並非用來殺敵的利矛</div>
+                            <div>船舵總是任他開心自由地旋轉著</div>
+                            <div>廚房總是有著食物</div>
+                            <div>我們崇尚荒誕</div>
+                            <div>並以認識沉澱在世界角落的你為榮</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <div class="h-body text-center">
+                            <div>因為在這裡文字是自由的</div>
+                            <div>世界沒有禁錮人類</div>
+                            <div>我們也無力禁錮自己</div>
+                            <div>希望你靜靜坐在甲板上看我們唱歌</div>
+                            <div>也希望你變得開朗 兀自舞蹈起來</div>
+                            <div>沒錯 世界之外的世界分外巨大</div>
+                        </div><!-- /Highlights -->
+                    </div>
+                </div>
+            </div>
+        </div> <!-- /row  -->
+
+    </div>	<!-- container -->
+</section>
+
+
+
+<footer id="footer" >
+    <div class="container">
+      <p>Powered By Django</p>
+    </div>
+</footer>
+{% endblock %}

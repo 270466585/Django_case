@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>教师管理</title>
+
+    <style>
+        body {
+            padding-top: 50px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/sweetalert/sweetalert.css">
+
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">令人窒息的后台管理界面</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Dashboard</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="panel panel-primary">
+                    <div class="panel-heading" role="tab" id="headingOne">
+                        <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                               aria-expanded="true" aria-controls="collapseOne">
+                                菜单一
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                         aria-labelledby="headingOne">
+                        <div class="panel-body">
+                            菜单一下面的内容
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading" role="tab" id="headingTwo">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                菜单二
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            菜单二下面的内容
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading" role="tab" id="headingThree">
+                        <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                菜单三
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                         aria-labelledby="headingThree">
+                        <div class="panel-body">
+                            菜单三下面的内容
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9  col-md-10  main">
+
+            <!--面板组件开始-->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">教师管理</h3>
+                </div>
+                <div class="panel-body">
+
+                    <div style="padding-bottom: 15px">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="exampleInputEmail2"
+                                       placeholder="搜索">
+                            </div>
+                            <button type="submit" class="btn btn-primary" disabled="disabled">搜索</button>
+
+                            <button type="button" class="btn btn-success pull-right" data-toggle="modal"
+                                    data-target="#myModal" >从模态框添加
+                            </button>
+
+                            <a href="/add_teacher/" class="btn btn-success pull-right">在新页面添加</a>
+                        </form>
+                    </div>
+
+                    <!--表格开始-->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="text-center">教师id</th>
+                                <th class="text-center">教师姓名</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for teacher in teacher_dict %}
+                                <tr>
+                                    <td>{{ teacher.id }}</td>
+                                    <td>{{ teacher.name }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-success edit" id="modal-btn">
+                                            <span class="glyphicon glyphicon-pencil ">在模态框中编辑</span>
+                                        </button>
+
+                                        <a href="/edit_teacher/?tid={{ teacher.id }}" class="btn btn-success">在新页面编辑</a>
+
+                                        <a href="/del_teacher/?tid={{ teacher.id }}" class="btn btn-danger">删除</a>
+                                        <a id="alertDelTeacher" type="button" class="btn btn-danger">用sweetalert删除</a>
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--表格结束-->
+                    <nav aria-label="Page navigation" class="pull-right">
+
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li>
+                                <a href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+        <!--面板组件结束-->
+
+    </div>
+</div>
+
+
+<!--添加教师模态框开始-->
+<div id='myModal' class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加教师信息</h4>
+            </div>
+            <div class="modal-body">
+                <!--表单开始-->
+                <form class="form-horizontal" action="/modal_add_teacher/" method="post">
+
+                    <div class="form-group">
+                        <label for="m-inputTeacher" class="col-sm-2 control-label">教师</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="m-tname" class="form-control" id="m-inputTeacher"
+                                   placeholder="请添加教师">
+                            <span id="error-msg" class="help-block"></span>
+                        </div>
+
+                    </div>
+
+                </form>
+                <!--表单结束-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button id="m-submitTeacher" type="button" class="btn btn-primary submit">提交</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<!--添加教师模态框结束-->
+<!--编辑教师模态框开始-->
+<div id='myEditTeacherModal' class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">修改教师信息</h4>
+            </div>
+            <div class="modal-body">
+                <!--表单开始-->
+                <form class="form-horizontal" action="/modal_deit_teacher/" method="post">
+
+                    <div class="form-group">
+
+                        <label for="m-inputEditTeacher" class="col-sm-2 control-label">修改教师</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="m-tname" class="form-control" id="m-inputEditTeacher">
+                            <span id="errorEditTeacher" class="help-block"></span>
+                        </div>
+
+                    </div>
+
+                </form>
+                <!--表单结束-->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button id="m-submitEditTeacher" type="button" class="btn btn-primary submit">提交</button>
+            </div>
+        </div><!-- modal-content -->
+    </div><!-- modal-dialog -->
+</div><!-- modal -->
+<!--编辑教师模态框结束-->
+
+<script src="/static/js/jquery-3.2.1.min.js"></script>
+<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+<script src="/static/sweetalert/sweetalert.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+        // 添加教师
+        $('#error-msg').text('').parent().parent().removeClass('has-error');
+        $('#m-submitTeacher').on("click",function(){
+            var tname=$('#m-inputTeacher').val();
+            $.ajax({
+                url: '/modal_add_teacher/',
+                type: 'post',
+                data: {'tname': tname},
+                success: function (data) {
+                    if (data === 'OK') {
+                        location.href = '/show_teacher/';
+                    }
+                    else {
+                        $('#error-msg').text(data).parent().parent().addClass('has-error')
+                    }  // else
+                }  //success
+            });
+
+        });
+
+
+        // 编辑教师
+        $tbody = $('tbody');
+        $tbody.on('click', '#modal-btn', function () {
+            $('#myEditTeacherModal').modal('show');  // 弹出模态框
+            $('#errorEditTeacher').text('').parent().parent().removeClass('has-error'); //清空错误信息
+            $tr = $(this).parent().parent().children();
+            teacherName = $($tr[1]).text();
+            teacherId = $($tr[0]).text();
+            var $mInputEditTeacher = $('#m-inputEditTeacher');
+            $mInputEditTeacher.val(teacherName);
+            $mInputEditTeacher.attr('teacherId', teacherId);
+            $('#m-submitEditTeacher').on('click', function () {
+                teacherName = $mInputEditTeacher.val();
+                teacherId = $mInputEditTeacher.attr('teacherId');
+                $.ajax({
+                    url: '/modal_edit_teacher/',
+                    type: 'post',
+                    data: {'teacherId': teacherId, 'teacherName': teacherName},
+                    success: function (data) {
+                        if (data === 'OK') {
+                            location.reload()
+                        }
+                        else {
+                            $('#errorEditTeacher').text(data).parent().parent().addClass('has-error')
+                        }
+                    }
+
+                });
+            });
+        });
+
+
+
+        // 删除教师
+
+        $tbody.on('click','#alertDelTeacher', function () {
+            var teacherId = $(this).parent().parent().children().eq(0).text();
+            var $tr=$(this).parent().parent();
+
+            swal({
+                title: "确定要删除这个教师吗？",
+                text: "删除后可就无法恢复了。",
+                type: "warning",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                confirmButtonText: "是的，我要删除！",
+                confirmButtonColor: "#ec6c62",
+                cancelButtonText: "容我三思"
+            }, function (isConfirm) {
+                if (!isConfirm) return;
+                $.ajax({
+                    url: "/alert_del_teacher/",
+                    type: "post",
+                    data: {"teacherId": teacherId},
+                    success: function (data) {
+                        var dataObj = JSON.parse(data);
+                        if (dataObj.status === 0) { //后端删除成功
+                            swal("删除成功", dataObj.msg, "success");
+                            $tr.remove();  //删除页面中那一行数据
+                        } else {
+                            swal("出错啦。。。", dataObj.msg, "error");  //后端删除失败
+                        }
+                    },
+                    error: function () {  // ajax请求失败
+                        swal("啊哦。。。", "服务器走丢了。。。", "error");
+                    }
+                })
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{% extends 'fruitShop/base_user.html' %}
+{% block body_content_inner %}
+{% load static %}
+
+	<div class="main_con clearfix">
+		<div class="left_menu_con clearfix">
+			<h3>用户中心</h3>
+			<ul>
+				<li><a href="{% url 'fruitShop:user_info' %}">· 个人信息</a></li>
+				<li><a href="{% url 'fruitShop:user_order' 1 %}">· 全部订单</a></li>
+				<li><a href="{% url 'fruitShop:user_site' %}" class="active">· 收货地址</a></li>
+			</ul>
+		</div>
+		<div class="right_content clearfix">
+				<h3 class="common_title2">收货地址</h3>
+				<div class="site_con">
+					<dl>
+						<dt>当前地址：</dt>
+						<dd>{{ userInfo.p_c_a_detail }}（{{ userInfo.shou_people }} 收） {{ userInfo.phone }}</dd>
+					</dl>					
+				</div>
+				<h3 class="common_title2">编辑地址</h3>
+				<div class="site_con">
+					<form action="{% url 'fruitShop:user_site' %}" method="post">
+						<div class="form_group">
+							<label>收件人：</label>
+							<input type="text" name="shou_people" value="{{ userInfo.shou_people }}">
+						</div>
+						<div class="form_group form_group2">
+							<label>收货地址：</label>
+							<textarea name="address" class="site_area">{{ userInfo.p_c_a_detail }}</textarea>
+						</div>
+						<div class="form_group">
+							<label>邮编：</label>
+							<input type="number" value="{{ userInfo.zip_code }}" name="zip_code">
+						</div>
+						<div class="form_group">
+							<label>手机：</label>
+							<input type="text" value="{{ userInfo.phone }}" name="phone">
+						</div>
+{% csrf_token %}
+						<input type="submit" value="提交" class="info_submit">
+					</form>
+				</div>
+		</div>
+	</div>
+{% endblock %}

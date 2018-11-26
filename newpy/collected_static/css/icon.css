@@ -1,0 +1,28 @@
+
+.part2 .icon-digg {
+    background-position: 0 -40px;
+    width: 18px;
+    height: 18px;
+}
+.hand-icon {
+    background-image: url("/static/ico/icon_18_118.png");
+}
+
+.content-list .item .news-content .part2 a.collect-a, .content-list .item .news-content .part2 a.digg-a, .content-list .item .news-content .part2 a.discus-a {
+    cursor: pointer;
+}
+a, blockquote, body, button, dd, dl, dt, fieldset, form, h1, h2, h3, h4, h5, h6, hr, input, legend, li, ol, p, pre, td, textarea, th, ul {
+
+    word-wrap: break-word;
+    word-break: break-all;
+}
+a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: auto;
+}
+
+
+body, button, input, select, td, textarea {
+    font: 12px Tahoma,Verdana,Arial,Helvetica,"\5b8b\4f53",sans-serif;
+    color: #333;
+}

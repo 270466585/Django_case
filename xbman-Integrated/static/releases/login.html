@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1">  
+	    <title>登陆-XBMAN发布管理系统</title>
+        <meta name="description" content="">
+        <meta name="author" content="templatemo">
+	    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700' rel='stylesheet' type='text/css'>
+        <link href="/static/css/font-awesome.min.css" rel="stylesheet">
+	    <link href="/static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+	    <link href="/static/css/templatemo-style.css" rel="stylesheet">
+        <link rel="icon" href="/static/images/logo.png" mce_href="/static/images/logo.png" type="image/x-icon">
+	    
+	    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	    <!--[if lt IE 9]>
+	      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	    <![endif]-->
+	</head>
+	<body class="light-gray-bg" id="beijing">
+		<div id="div1" style="display:none;" class="templatemo-content-widget templatemo-login-widget white-bg">
+			<header class="text-center">
+                <img src="/static/images/logo.png"/>
+	            <h1>Xbman-发布管理系统</h1>
+	        </header>
+	        <form action="" class="templatemo-login-form"  method="post">
+                {% csrf_token %}
+	        	<div class="form-group">
+	        		<div class="input-group">
+		        		<div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>	        		
+		              	{{ form.username}}
+		          	</div>	
+	        	</div>
+	        	<div class="form-group">
+	        		<div class="input-group">
+		        		<div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>	        		
+		              	{{ form.password}}
+		          	</div>	
+	        	</div>	          	
+{#	          	<div class="form-group">#}
+{#				    <div class="checkbox squaredTwo">#}
+{#				        <input type="checkbox" id="c1" name="cc" />#}
+{#						<label for="c1"><span></span>记住密码</label>#}
+{#				    </div>				    #}
+{#				</div>#}
+				<div class="form-group">
+					<button type="submit" class="templatemo-blue-button width-100">登&nbsp;&nbsp;&nbsp;陆</button>
+                    {% if password_is_wrong %}
+                    <div class="templatemo-register-widget"><span class="span-colo">用户名或密码错误！</span></div>
+                    {% endif %}
+                </div>
+	        </form>
+		</div>
+		<div id="div2" style="display:none;" class="templatemo-content-widget templatemo-login-widget templatemo-register-widget white-bg">
+			<p>忘记密码,请联系<strong><a href="mailto:###.com" class="blue-text">管理员</a>!</strong></p>
+		</div>
+
+    <script src="/static/js/jquery-3.1.0.min.js"></script>
+        <script type="text/javascript">
+            (function(){
+                $("#div1").fadeIn(2500);
+                $("#div2").fadeIn(2600);
+            }());
+        </script>
+	</body>
+</html>

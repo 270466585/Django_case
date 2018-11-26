@@ -1,0 +1,137 @@
+{% extends 'fruitShop/base_goods.html' %}
+
+{% block body_content_inner %}
+{% load static %}
+
+	<div class="navbar_con">
+		<div class="navbar clearfix">
+			<div class="subnav_con fl">
+				<h1>全部商品分类</h1>
+				<span></span>
+				<ul class="subnav">
+					{% for cate in categories %}
+					<li><a href="{% url 'fruitShop:list' cate.id 1 1 %}" class="{{ cate.className }}">{{ cate.title }}</a></li>
+                    {% endfor %}
+				</ul>
+			</div>
+			<ul class="navlist fl">
+				<li><a href="/">首页</a></li>
+				<li class="interval">|</li>
+				<li><a href="">手机生鲜</a></li>
+				<li class="interval">|</li>
+				<li><a href="">抽奖</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="breadcrumb">
+		<a href="/">全部分类</a>
+		<span>></span>
+		<a href="{% url 'fruitShop:list' good.category_id 1 1 %}">{{ cate }}</a>
+		<span>></span>
+		<a href="#">商品详情</a>
+	</div>
+
+	<div class="goods_detail_con clearfix">
+		<div class="goods_detail_pic fl"><img width="100%" src="{% static 'fruitShop/upload_images/' %}{{ good.picture }}"></div>
+
+		<div class="goods_detail_list fr">
+			<h3>{{ good.name }}</h3>
+			<p>{{ good.intro }}</p>
+			<div class="prize_bar">
+				<span class="show_pirze">¥<em>{{ good.price }}</em></span>
+				<span class="show_unit">单  位：{{ good.unit }}</span>
+			</div>
+			<div class="goods_num clearfix">
+				<div class="num_name fl">数 量：{{ good.number }}</div>
+				<div class="num_add fl">
+					<input type="text" class="num_show fl" id="goods_num_show" value="1">
+					<a href="javascript:;" class="add fr" onclick="addNum()">+</a>
+					<a href="javascript:;" class="minus fr" onclick="reduceNum()">-</a>
+				</div>
+			</div>
+			<div class="total">总价：<em>16.80元</em></div>
+			<div class="operate_btn">
+				<a href="javascript:;" class="buy_btn">立即购买</a>
+				<a href="javascript:;" class="add_cart" onclick="addCart_1({{ good.id }})" id="add_cart">加入购物车</a>
+			</div>
+		</div>
+	</div>
+{#onclick="addCart({{ good.id }})" #}
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+                    {% for t in t_goods %}
+					<li>
+						<a href="{% url 'fruitShop:detail' t.id %}"><img src="{% static 'fruitShop/upload_images/' %}{{ t.picture }}"></a>
+						<h4><a href="#">{{ t.name }}</a></h4>
+						<div class="prize">￥{{ t.price }}</div>
+					</li>
+                    {% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<ul class="detail_tab clearfix">
+				<li class="active">商品介绍</li>
+				<li>评论</li>
+			</ul>
+
+			<div class="tab_content">
+				<dl>
+					<dt>商品详情：</dt>
+					<dd>
+                    {{ good.content|safe }}</dd>
+				</dl>
+			</div>
+
+		</div>
+	</div>
+<div class="add_jump"></div>
+
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+        function addNum() {
+            $("#goods_num_show").val(parseInt($("#goods_num_show").val())+1)
+        }
+        function reduceNum() {
+            if($("#goods_num_show").val()>1){
+                $("#goods_num_show").val(parseInt($("#goods_num_show").val())-1)
+            }
+        }
+		var $add_x = $('#add_cart').offset().top;
+		var $add_y = $('#add_cart').offset().left;
+		var $to_x = $('#show_count').offset().top;
+		var $to_y = $('#show_count').offset().left;
+		$(".add_jump").css({'left':$add_y+80,'top':$add_x+10,'display':'block'})
+        function addCart_1(good_id) {
+		    number=parseInt($("#goods_num_show").val());
+            $.post('{% url 'fruitShop:addcart' %}',
+                {'id':good_id,'number':number,'csrfmiddlewaretoken':'{{ csrf_token }}'},
+                function(res){
+                    if(res.status==1){
+                        $(".add_jump").stop().animate({
+                            'left': $to_y+7,
+                            'top': $to_x+7},
+                            "fast", function() {
+                                $(".add_jump").fadeOut('fast',function(){
+                                    $('#show_count').text(parseInt($('#show_count').text())
+                                        +parseInt($("#goods_num_show").val()));
+                                });
+
+                        });
+                    }else if(res.status==3){
+                        alert(res.msg)
+                    }else if (res.status==0){
+                        alert(res.msg);
+                        location.href='{% url 'fruitShop:user_login' %}';
+                    }
+            })
+        }
+	</script>
+{% endblock %}

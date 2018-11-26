@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block nav %}
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav" style="margin-top:0">
+          <li><a href="/index"><span class="glyphicon glyphicon-home"></span> 主页 </a></li>
+          <li><a href="/article"><span class="glyphicon glyphicon-book"></span> 文章 </a></li>
+          <li><a href="/"><span class="glyphicon glyphicon-headphones"></span> 电台 </a></li>
+          <li><a href="/about"><span class="glyphicon glyphicon-info-sign"></span> 关于 </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+            <li><a href="/PersonalCenter/">个人信息</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/xuser/">我的文章</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">我的电台</a></li>
+          </ul>
+          </li>
+       </ul>
+    </div>
+{% endblock %}
+
+{% block jubmo %}
+    <div class="jumbotron" xmlns="http://www.w3.org/1999/html">
+    <div class="container">
+      <h2>{{ title }}</h2>
+      <p>在这里添加文章</p>
+    </div>
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <div id="information" style="margin-top:0">
+
+{#    <div class="container">#}
+        <div class="row" style="margin:0">
+          <div class="col-md-6">
+           <form method="POST" class="post-form">{% csrf_token %}
+           {% if messages %}
+                {% for message in messages %}
+                <div{% if message.tags == 'success' %} class="alert alert-success" role="alert" >{{ message }}&nbsp;&nbsp;&nbsp;<a href="#" class="alert-link">现在去写一篇文章</a></div>{% endif %}
+                <div{% if message.tags == 'info' %} class="alert alert-info" role="alert" >{{ message }}</div>{% endif %}
+                <div{% if message.tags == 'warning' %} class="alert alert-warning" role="alert" >{{ message }}</div>{% endif %}
+                <div{% if message.tags == 'error' %} class="alert alert-danger" role="alert" >{{ message }}</div>{% endif %}
+                {% endfor %}
+            {% endif %}
+
+           <div class="input-group">
+           <span class="input-group-addon" id="basic-addon1">文章ID</span>
+           <input type="text" class="form-control" placeholder="id" aria-describedby="basic-addon1" readonly {{ form.id }}
+           </div>
+
+            <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">文章标题</span>
+            <input type="text" class="form-control" placeholder="输入文章标题" aria-describedby="basic-addon1" {{ form.title }}
+            </div>
+
+            <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">文章摘要</span>
+            <input type="text" class="form-control" placeholder="输入文章摘要" aria-describedby="basic-addon1" {{ form.desc }}
+            </div>
+
+            <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">封面图片</span>
+            <input type="text" class="form-control" placeholder="输入封面图片链接" aria-describedby="basic-addon1" {{ form.img_link }}
+            </div>
+
+            <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">音乐链接</span>
+            <input type="text" class="form-control" placeholder="输入推荐音乐链接" aria-describedby="basic-addon1" {{ form.music_link }}
+            </div>
+
+            <div class="form-group">
+{#            <textarea class="form-control" placeholder="id" {{ form.body }}#}
+                <div class="wmd-panel">
+                    <div id="wmd-button-bar"></div>
+                    <textarea class="wmd-input" id="wmd-input" {{ form.body }}
+
+                    </div>
+            </div>
+
+           <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">发布状态</span>
+            <input type="text" class="form-control"  aria-describedby="basic-addon1" readonly {{ form.status }}
+            </div>
+
+           <div class="input-group">
+            <span class="input-group-addon" id="basic-addon1">作者</span>
+            <input type="text" class="form-control"  aria-describedby="basic-addon1" readonly {{ form.user }}
+            </div>
+
+            <div class="form-group">
+            <button type="submit" class="btn btn-default" id="btn">提交</button>
+            </div>
+           </form>
+        </div>
+
+
+        <div class="row" style="margin:0">
+          <div class="col-md-6">
+{#            <div class="container-fluid" style="padding-top:30px;">#}
+                <div class="form-group">
+
+                    <div id="wmd-preview" class="wmd-panel wmd-preview"></div>
+
+                </div>
+            </div>
+        </div>
+  </div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript">
+
+
+   (function () {
+   var converter1 = Markdown.getSanitizingConverter();
+       var editor1 = new Markdown.Editor(converter1);
+       editor1.run();
+
+{#       var converter2 = new Markdown.Converter();#}
+{#       converter2.hooks.chain("preConversion", function (text) {#}
+{#           return text.replace(/\b(a\w*)/gi, "*$1*");#}
+{#       });#}
+{##}
+{#       converter2.hooks.chain("plainLinkText", function (url) {#}
+{#             return "This is a link to " + url.replace(/^https?:\/\//, "");#}
+{#             });#}
+{##}
+{#       var help = function () { alert("Do you need help?"); }#}
+{#       var options = {#}
+{#             helpButton: { handler: help },#}
+{#             strings: { quoteexample: "whatever you're quoting, put it right here" }#}
+{#       };#}
+{#       var editor2 = new Markdown.Editor(converter2, "-second", options);#}
+{##}
+{#       editor2.run();#}
+   })();
+</script>
+
+<footer id="footer" >
+    <div class="container">
+      <p>Powered By Django</p>
+    </div>
+</footer>
+
+{% endblock %}

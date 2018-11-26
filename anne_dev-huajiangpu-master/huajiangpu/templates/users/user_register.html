@@ -1,0 +1,81 @@
+{% extends 'common/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}
+	<title>花匠铺-用户注册</title>
+{% endblock %}
+
+{% block body %}
+	<!-- Page Wrapper -->
+	<div id="page-wrapper">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+
+			<!-- Panel -->
+			<section class="panel color2-alt">
+				<div class="intro color2">
+					<h2 class="major">注册</h2>
+					<p>感谢您对花匠铺的
+						<br> 信任
+					</p>
+				</div>
+				<div class="inner columns aligned">
+					<div class="span-4-5">
+						<h3 class="major">请填写您的个人信息</h3>
+						<form method="post" action="{% url 'users:register_handle' %}">
+							<div class="field third">
+								<label for="user_name">姓名</label>
+								<input type="text" name="user_name" id="user_name" value="" placeholder="5-20个字符" />
+							</div>
+							<div class="field third">
+								<label for="user_email">邮箱</label>
+								<input type="email" name="user_email" id="user_email" value="" placeholder="正确的邮箱" />
+							</div>
+							<div class="field third">
+								<label for="user_category">性别</label>
+								<div class="select-wrapper">
+									<select name="user_category" id="user_category">
+										<option value="1">女</option>
+										<option value="2">男</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="field third">
+								<input type="text" name="user_tele" id="user_tele" value="" placeholder="请输入您的手机号码" />
+							</div>
+							<div class="field quarter">
+								<input type="submit" value="发送验证码" class="special color2" />
+							</div>
+							<div class="field quarter">
+								<input type="email" name="user_code" id="user_code" placeholder="验证码" />
+							</div>
+
+							<div class="field quarter">
+								<input type="checkbox" id="user_protocol" name="user_protocol" class="color2" checked />
+								<label for="user_protocol">同意用户协议</label>
+							</div>
+							<div class="field quarter">
+									<a href="#">用户协议</a>
+							</div>
+							<ul class="actions field">
+								<li>
+									<input type="submit" value="提交" class="special color2" />
+								</li>
+							</ul>
+						</form>
+					</div>
+				</div>
+			</section>
+
+			<!-- Copyright -->
+			<div class="copyright">&copy; 安徽省黄山市歙县:
+				<a href="https://html5up.net">花匠铺</a>.</div>
+
+		</div>
+
+	</div>
+
+{% endblock body %}

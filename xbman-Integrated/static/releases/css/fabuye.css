@@ -1,0 +1,92 @@
+#main-stats {
+	margin-left: -20px;
+	margin-right: -20px;
+	background-color: #fdfdfd;
+ 	border-bottom: 1px solid #efeef3; 
+ 	}
+ #main-stats .stats-row {
+  	box-shadow: inset -1px 0px 5px 2px #f9f9f9; 
+  	}
+#main-stats .stat {
+	text-align: right;
+	padding: 30px 0px 35px 0px;
+	border-right: 1px solid #e8e9ee;
+	position: relative;
+	box-shadow: 1px 0px 0px 0px white; 
+	}
+#main-stats .stat.last {
+    border-right: 0px; 
+    }
+#main-stats .stat .data {
+  	color: #29323a;
+  	text-transform: uppercase;
+  	font-weight: 600;
+  	font-size: 14px;
+  	padding-right: 50px; 
+    }
+#main-stats .stat .data .number {
+	color: #32a0ee;
+	font-size: 20px;
+	margin-right: 17px; 
+	}
+#main-stats .stat .date {
+	color: #b4b8bb;
+	font-weight: lighter;
+	font-family: 'Lato', 'Open Sans';
+	font-style: italic;
+	font-size: 11px;
+	position: absolute;
+	right: 20px; 
+	}
+.block1{
+	/*background-color: #000000;*/
+	/*width: 239px;*/
+	border: 1px dashed #e8e9ee;
+	float: left;
+	display: inline-block;
+	margin: 1px 0 0 0;
+	padding: 18px;
+	
+}
+.block1 h4{
+	color: #29323a;
+    text-transform: uppercase;
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    /*padding-right: 50px;*/
+}
+.block1 button{
+	display: block;
+	margin: 20px 0;
+	padding: 5px  20px 5px 20px;
+}
+.xianshiqi{
+	display: inline-block;
+	/*background-color: red;*/
+	width: 90%;
+	height: 100%;
+	position: absolute;
+	border: 1px dashed #e8e9ee;
+	margin: 1px 0 0 5px;
+}
+.xianshiqi pre{
+	margin: 10px 20px 5px 10px;
+	padding: 20px;
+	font-size: 20px;
+	min-height:250px;overflow-y:auto;max-height:520px;
+}
+.redxsq {
+	border:2px #FF0000 solid;
+}
+.hostsos{
+	display: block;
+	margin: 20px 0 20px 0;
+	padding: 0 auto;
+}
+.hostsos button{
+	 margin: 0 auto ;
+	display: inline-block;
+	padding: 5px  11px 5px 11px;
+}

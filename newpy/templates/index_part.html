@@ -1,0 +1,130 @@
+
+
+<link href="/static/css/icon.css" rel="stylesheet">
+    <div style="width: 800px;margin-left:auto;margin-right: auto ">
+    <div   style="width: 200px;margin-top: auto;height: auto;float: right;" >
+
+    <div class="list-group" style="width: 200px;margin-top: auto;height: 100px;float: right;">
+
+    <a href="##" class="list-group-item active"><span class="badge">5902</span>新上榜</a><br>
+	<a href="##" class="list-group-item list-group-item-success"><span class="badge">15902</span>日报</a>
+	<br><a href="##" class="list-group-item list-group-item-info"><span class="badge">59020</span>七日热门</a>
+	<br><a href="##" class="list-group-item list-group-item-warning"><span class="badge">0</span>30日热门</a>
+	<br><a href="##" class="list-group-item list-group-item-danger"><span class="badge">10</span>热榜</a>
+
+
+    </div>
+
+
+        <div  style="width: 200px;margin-top: 100%;height: auto;float: right;">
+            <h5 style="margin-top:auto;color: #969696">推荐作者<a href="#"><img class="icoimg" align="right" src="/static/ico/xye.png"></a><a href="#"><img class="icoimg" align="right" src="/static/ico/sye.png"></a></h5>
+        {% for u in bbs_user %}
+            <div>
+            <h5><img class="userimg"  src="{{ u.photo }}">&nbsp;
+                <a style="color: #0b0b0b" href="/home/{{ u.user }}/">{{ u.user }}</a>&nbsp;&nbsp;&nbsp;&nbsp;<a style="color: #4cae4c">+关注</a>
+            <h5 style="font-size: 5px">{{ u.signature }}</h5>
+            </h5>
+            <br></div>
+            {% endfor %}
+            <div><a class="find_more">查看更多</a></div>
+
+        </div>
+</div>
+
+    <div style=" width: 550px; float: left">
+
+        <!-- 放置可重用的数据-->
+
+        <!--下面的代码为动态页面，此页面为母版，其他网站可以重用block中的数据，只要继承母版即可-->
+
+     {% block page-content %}
+      <!-- Main component for a primary marketing message or call to action -->
+         <form action="/search/" method="post">
+         {% csrf_token %}
+      <ul class="nav nav-pills navbar-right" role="tablist">
+          <li class="active" style="height: 30px;width: 100px"><input type="text" name="searh"/></li>
+          <li class="active"><input type="submit" name="Searh" value="搜索"/></li>
+         <li role="presentation" class="active">
+             <button><a href="/bbs_pub/">发帖</a></button>
+         </li>
+     </ul>
+{#      <br/>#}
+               </form>
+      <hr>
+
+         <div>
+         <a href="#"><button type="button" class="btn btn-default">python</button></a>
+<!-- 提供额外的视觉效果，标识一组按钮中的原始动作 -->
+             <a href="#"><button type="button" class="btn btn-primary">java</button></a>
+<!-- 表示一个成功的或积极的动作 -->
+<a href="#"><button type="button" class="btn btn-success">c++</button></a>
+<!-- 信息警告消息的上下文按钮 -->
+<a href="#"><button type="button" class="btn btn-info">R</button></a>
+<!-- 表示应谨慎采取的动作 -->
+<a href="#"><button type="button" class="btn btn-warning">大数据</button></a>
+<!-- 表示一个危险的或潜在的负面动作 -->
+<a href="#"><button type="button" class="btn btn-danger">linux</button></a>
+             <a href="#"><button type="button" class="btn btn-warning">web安全</button></a>
+             <a href="#"><button type="button" class="btn btn-default">更多</button></a>
+<!-- 并不强调是一个按钮，看起来像一个链接，但同时保持按钮的行为 -->
+         </div>
+
+      <div style="margin-top:20px;width: 100%">
+        {% for bbs in bbs_list reversed %}
+            <!--论坛首页链接标题-->
+            <div style="position: relative">
+                <h5><a href="#"><img class="userimg"  src="{{ bbs.author.photo }}">&nbsp;&nbsp;<span style="color: #0b0b0b">{{ bbs.author }}</span></a>&nbsp;&nbsp;<span style="color: #969696">{{ bbs.created_at }}</span></h5>
+                <br>
+            {% ifequal bbs.summary  'none' %}
+                <h4 style="max-width: 15px"><b><a style="color: #0b0b0b; font-size: large;white-space:nowrap;max-width:15px;text-overflow:ellipsis;" href={{ bbs.content }}>{{ bbs.title }}</a></b></h4>
+            {% else %}
+               <h4> <b><a style="color: #0b0b0b; font-size: large;max-width:2px;" href="/detail/{{ bbs.id }}/">{{ bbs.title }}</a></b></h4><!--点击标题跳转到bbs_detail.html-->
+
+                {% ifequal bbs.picture '' %}
+                    <p>{{ bbs.summary }}</p>
+                    <br>
+                    {% else %}
+                   <div> <p style="width: 70%;height: 30%"> {{ bbs.summary }}
+                   </p><div><a href="/detail/{{ bbs.id }}/"><img class="wrap_img"  width="125px" align="right" style="border-radius: 4px; margin-top: -15%; height:100px; " src="/static/img/zh/{{ bbs.picture }}"></a></div>
+                   </div>
+
+
+                {% endifequal %}
+
+
+            {% endifequal %}
+{#             <h5 align="right">{{ bbs.author }}</h5>#}
+            <br>
+
+            <div>
+                <a  style="cursor: pointer;min-width: 54px;" href="#"><img id="viewi" style="width: 20px;height: 20px;" src="/static/ico/eye1.png">&nbsp;<b>{{ bbs.view_count }}</b></a>
+                &nbsp;&nbsp; <a  style="cursor: pointer;min-width: 54px;" href="#"><img id="sayi" style="width: 20px;height: 20px;" src="/static/ico/heart1.png">&nbsp;<b>{{ bbs.love_count }}</b></a>
+                &nbsp;&nbsp; <a style="cursor: pointer;min-width: 54px;" href="#"><img id="lovei" style="width: 20px;height: 20px;" src="/static/ico/say1.png">&nbsp;<b>{{ bbs.say_count }}</b></a>
+</div>
+
+            </div>
+            <hr>
+        {% endfor %}
+      </div>
+
+
+     {% endblock %}
+{#        <div style="margin-left: 25%"><ul class="pagination">#}
+{#    <li><a href="#">&laquo;</a></li>#}
+{#    <li class="active"><a href="#">1</a></li>#}
+{#    <li><a href="#">2</a></li>#}
+{#    <li><a href="#">3</a></li>#}
+{#    <li><a href="#">4</a></li>#}
+{#    <li><a href="#">5</a></li>#}
+{#    <li><a href="#">&raquo;</a></li>#}
+{#</ul>#}
+{#        </div>#}
+     </div>
+
+    </div> <!-- /container -->
+{% comment %}{% endcomment %}
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+

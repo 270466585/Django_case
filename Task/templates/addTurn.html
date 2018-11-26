@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#projectName").change(function () {
+                $('#planName').empty();
+                var projectNameText = $("#projectName").find("option:selected").text();
+                $.get('/getPlanName/' + projectNameText, function (data) {
+                    for (var i = 0; i < data.length; i++) {
+                        $('#planName').append("<option value=" + data[i] + ">" + data[i] + "</option>");
+                    }
+                    ;
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        {% include 'nav.html' %}
+        <form method="post" action="/addTurn/">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="projectName">项目名称</label>
+                <select class="form-control" name="projectName" id="projectName">
+                    <option value=""></option>
+                    {% for i in data %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="planName">测试计划名称</label>
+                <select class="form-control" name="planName" id="planName">
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="turnName">测试轮次名称</label>
+                <input type="text" class="form-control" id="turnName" placeholder="测试轮次名称" name="turnName">
+            </div>
+            <div class="form-group">
+                <label for="content">测试内容概要</label>
+                <input type="text" class="form-control" id="content" placeholder="测试内容概要" name="content">
+            </div>
+            <div class="form-group">
+                <label for="tester">测试人员</label>
+{#                <input type="text" class="form-control" id="tester" placeholder="测试人员" name="tester">#}
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="顾疆飞" name="tester[]"> 顾疆飞
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox2" value="姜志伟" name="tester[]"> 姜志伟
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="田园" name="tester[]"> 田园
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox4" value="杨剑" name="tester[]"> 杨剑
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox5" value="陈嘉祎" name="tester[]"> 陈嘉祎
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox6" value="何雷雷" name="tester[]"> 何雷雷
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox7" value="黄志佼" name="tester[]"> 黄志佼
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="inlineCheckbox8" value="徐静" name="tester[]"> 徐静
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="startTime">开始时间</label>
+                <input type="text" class="form-control" id="startTime" placeholder="开始时间" name="startTime">
+            </div>
+            <div class="form-group">
+                <label for="endTime">结束时间</label>
+                <input type="text" class="form-control" id="endTime" placeholder="结束时间" name="endTime">
+            </div>
+            <div class="form-group">
+                <label for="workHour">工时</label>
+                <input type="text" class="form-control" id="workHour" placeholder="工时" name="workHour">
+            </div>
+            <div class="form-group">
+                <label for="mark">备注</label>
+                <input type="text" class="form-control" id="mark" placeholder="备注" name="mark">
+            </div>
+            <button type="submit" class="btn btn-default">提交</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<div id="information" style="margin-top:0">
+  <div class="row" style="margin:0">
+    <div class="wmd-wrapper" id="{{ form.body }}-wmd-wrapper">
+        <div class="wmd-panel">
+            <div id="{{ id|safe }}_wmd_button_bar"></div>
+            <textarea{{ attrs|safe }}>{{ formbody }}</textarea>
+        </div>
+        {% if show_preview %}
+            <p class="wmd-preview-title"><small>HTML Preview:</small></p>
+            <div id="{{ id|safe }}_wmd_preview" class="wmd-panel wmd-preview"></div>
+        {% endif %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

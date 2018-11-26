@@ -1,0 +1,15 @@
+/*a:-webkit-any-link {*/
+    /*color: -webkit-link;*/
+    /*text-decoration: underline;*/
+    /*cursor: auto;*/
+/*}*/
+.find_more{
+    position: absolute;
+    padding: 7px 7px 7px 12px;
+    width: auto;
+    font-size: 13px;
+    color: #787878;
+    background-color: #f7f7f7;
+    border: 1px solid #dcdcdc;
+    border-radius: 4px;
+}

@@ -1,0 +1,169 @@
+{% extends 'releases/base.html' %}
+{% block titel %}发布管理系统-绑定hosts配置页{% endblock %}
+{% block link %}
+    <link href="/static/releases/css/lib/font-awesome.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/releases/css/compiled/user-profile.css" type="text/css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/static/releases/css/fabupeizhiye.css" />
+    <link rel="stylesheet" href="/static/releases/css/compiled/new-user.css" type="text/css" media="screen" />
+{% endblock %}
+
+{% block body %}
+    	<!-- main container -->
+    <div class="content">
+    {% if zhuangtai %}
+            <div id="zhuangtai2" class="alert alert-success alert-dismissible" role="alert">
+        {% else %}
+            <div style="display: none"  id="zhuangtai2" class="alert alert-success alert-dismissible" role="alert">
+        {% endif %}
+		  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only"></span></button>
+		  <strong>保存成功!</strong>
+		    </div>
+        <div class="container-fluid">
+            <div id="pad-wrapper" class="new-user">
+                <div class="row-fluid header">
+                    <h3>绑定hosts配置</h3>
+                    <h5 id="xinghao">* 必填</h5>
+                </div>
+
+                <div class="row-fluid form-wrapper">
+                    <!-- left column -->
+                    <div class="span9 with-sidebar">
+                        <div class="container">
+                            <form class="new_user_form inline-input" action="/releases/hostsmodify/" method="post"/>
+                            {% csrf_token %}
+                                <div class="span12 field-box">
+                                    <label id="saltip1">*salt主机IP:</label>
+                                    <input class="span9" name="saltip" id="saltip" value="{{ modify.IP }}" type="text" placeholder="请输入salt服务器IP"/>
+                                </div>
+                                <div class="span12 field-box">
+                                    <label id="saltusername1">*连接账户:</label>
+                                    <input class="span9" name="saltusername" id="saltusername" value="{{ modify.username }}" type="text" placeholder="请输入salt服务器连接账户"/>
+                                </div>
+                                <div class="span12 field-box">
+                                    <label id="saltpasswork1">*连接密码:</label>
+                                    <input class="span9" name="saltpasswork" id="saltpasswork" value="{{ modify.password }}" type="password" placeholder="请输入salt服务器连接密码"/>
+                                </div>
+                                <div class="span12 field-box">
+                                    <label id="onegroup1">*绑定第一组:</label>
+                                    <input class="span9" name="onegroup" id="onegroup" value="{{ modify.onegroup }}" type="text" placeholder="请输入第一组绑定hosts的salt命令"/>
+                                </div>
+                                <div class="span12 field-box">
+                                    <label id="twogroup2">*绑定第二组:</label>
+                                    <input class="span9" name="twogroup" id="twogroup" value="{{ modify.twogroup }}"  type="text" placeholder="请输入第二组绑定hosts的salt命令"/>
+                                </div>
+                                <div class="span12 field-box">
+                                    <label id="reductionone1">*还原第一组:</label>
+                                    <input class="span9" name="reductionone" id="reductionone" value="{{ modify.reductionone }}" type="text" placeholder="请输入还原第一组hosts的salt命令"/>
+                                </div>
+                                <div class="span12 field-box">
+                                    <label id="reductiontwo1">*还原第二组:</label>
+                                    <input class="span9" name="reductiontwo" id="reductiontwo" value="{{ modify.reductiontwo }}" type="text" placeholder="请输入还原第二组hosts的salt命令"/>
+                                </div>
+                                <div class="span12 field-box textarea">
+                                    <label>备注:</label>
+                                    <textarea class="span9" name="Remark" placeholder="备注及说明">{{ modify.Remark }}</textarea>
+                                    <!--<span class="charactersleft">小于256字</span>-->
+                                </div>
+                                <div class="span11 field-box actions">
+                                    <input type="submit" class="btn-glow primary" onclick="return checkNull()" value="确认修改" />
+                                    <span>OR</span>
+                                    <input type="reset" value="重置" class="reset" />
+                                </div>
+                           </form>
+                        </div>
+                    </div>
+
+                    <!-- side right column -->
+                    <div class="span3 form-sidebar pull-right">
+                        <div class="alert alert-info hidden-tablet">
+                            <i class="icon-lightbulb pull-left"></i>
+                            	请谨慎填写相关配置，用户名及密码。
+                        </div>
+                        <!--<h6>Sidebar text for instructions</h6>
+                        <p>Add multiple users at once</p>
+                        <p>Choose one of the following file types:</p>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end main container -->
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var $canshu=$('#fbmodify');
+            var $span=$('<div class="pointer"> <div class="arrow"></div> <div class="arrow_border"></div> </div>');
+            $($canshu).append($span);
+            $($canshu).addClass("active");
+            $('#hostsmodify').addClass("active");
+            $('#fbmodifyul').addClass("active");
+    })
+    </script>
+    <script type="text/javascript">
+        function checkNull()
+        {
+            var saltip=$("#saltip").val();
+            var saltusername=$("#saltusername").val();
+            var saltpasswork=$("#saltpasswork").val();
+            var username=$("#onegroup").val();
+            var password=$("#twogroup").val();
+            var reductionone=$("#reductionone").val();
+            var reductiontwo=$("#reductiontwo").val();
+
+            if(saltip==""){
+            //显示错误提示信息
+            $("#saltip").attr('placeholder','不得为空');
+            $("#saltip1").css('color','red');
+            return false;
+        }else{
+                $("#saltip1").css('color','');
+            }
+            if(saltusername==""){
+            $("#saltusername").attr('placeholder','不得为空');
+            $("#saltusername1").css('color','red');
+            return false;
+        }else{
+                $("#saltusername1").css('color','');
+            }
+            if(saltpasswork==""){
+            $("#saltpasswork").attr('placeholder','不得为空');
+            $("#saltpasswork1").css('color','red');
+            return false;
+        }else{
+                $("#saltpasswork1   ").css('color','');
+            }
+            if(username==""){
+            //显示错误提示信息
+            $("#onegroup").attr('placeholder','不得为空');
+            $("#onegroup1").css('color','red');
+            return false;
+        }else{
+                $("#onegroup1").css('color','');
+            }
+        if(password==""){
+            $("#twogroup").attr('placeholder','不得为空');
+            $("#twogroup2").css('color','red');
+            return false;
+        }else{
+                $("#twogroup2").css('color','');
+            }
+            if(reductionone==""){
+            $("#reductionone").attr('placeholder','不得为空');
+            $("#reductionone1").css('color','red');
+            return false;
+        }else{
+                $("#reductionone1").css('color','');
+            }
+            if(reductiontwo==""){
+            $("#reductiontwo").attr('placeholder','不得为空');
+            $("#reductiontwo1").css('color','red');
+            return false;
+        }else{
+                $("#reductiontwo1").css('color','');
+            }
+        return true;
+             };
+    </script>
+{% endblock %}

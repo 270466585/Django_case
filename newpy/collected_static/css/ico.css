@@ -1,0 +1,12 @@
+.icoimg{
+    width: 20px;
+    height: 20px;
+    color: #b4b4b4;
+}
+.userimg{
+    float: left;
+    width: 30px;
+    height: 30px;
+    color:  #ccc;
+    border-radius:30px;
+}

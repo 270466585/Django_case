@@ -1,0 +1,102 @@
+{% extends 'releases/base.html' %}
+{% block titel %}发布管理系统-发布记录{% endblock %}
+{% block link %}<link rel="stylesheet" href="/static/releases/css/compiled/tables.css" type="text/css" media="screen" />{% endblock %}
+{% block body %}
+    <div class="content">
+
+
+        <div class="container-fluid">
+            <div id="pad-wrapper">
+                <!-- orders table -->
+                <div class="table-wrapper orders-table section">
+                    <div class="row-fluid head">
+                        <div class="span12">
+                            <h4>发布及操作记录</h4>
+                        </div>
+                    </div>
+
+
+                    <div class="row-fluid">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="span2">
+                                        ID
+                                    </th>
+                                    <th class="span3">
+                                        操作时间
+                                    </th>
+                                    <th class="span3">
+                                        <span class="line"></span>
+                                        发布项目
+                                    </th>
+                                    <th class="span3">
+                                        <span class="line"></span>
+                                        发布类型
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- row -->
+                                {% for topic in topics %}
+                                    <tr>
+                                    <td>
+                                        <span>{{ topic.id }}</span>
+                                    </td>
+                                    <td>
+                                        {{ topic.date |date:"Y-m-d H:i:s"}}
+                                    </td>
+                                    <td>
+                                        <span>{{ topic.release }}</span>
+                                    </td>
+                                    <td>
+                                        {% if topic.type_list == 'routine' %}
+                                            <span class="label label-success">常规</span>
+                                        {% else %}
+                                            <span class="label label-info">非常规</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- end orders table -->
+
+            </div>
+        </div>
+        <div id="fenye" class="pagination pull-left">
+            <ul>
+            {% if topics.has_previous %}
+                <li><a href="?page={{ topics.previous_page_number }}">&#8249;</a></li>
+                {% else %}
+                <li><a href="#">&#8249;</a></li>
+              {% endif %}
+              {% for page_number in topics.paginator.page_range %}
+                {% ifequal page_number  topics.number %}
+                    <li><a class="active" >{{ page_number }}</a></li>
+                {% else %}
+                    <li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+                {% endifequal %}
+              {% endfor %}
+            {% if topics.has_next %}
+                <li><a href="?page={{ topics.next_page_number }}">&#8250;</a></li>
+                {% else %}
+                <li><a href="#">&#8250;</a></li>
+            {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script type="text/javascript">
+			$(document).ready(function(){
+				var $canshu=$('#fabujilu');
+				var $span=$('<div class="pointer"> <div class="arrow"></div> <div class="arrow_border"></div> </div>');
+				$($canshu).append($span);
+				$($canshu).addClass("active");
+		});
+		</script>
+{% endblock %}

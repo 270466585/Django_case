@@ -1,0 +1,142 @@
+{% extends 'index.html' %}
+{% load comments %}
+{% block page-content %}
+<!--bbs-contents-->
+
+{% block index__part %}
+        <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/more.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/static/css/navbar-fixed-top.css" rel="stylesheet">
+
+    <link href="/static/css/ico.css" rel="stylesheet">
+    <!--从虎嗅网中导入的带阴影的边框，代码保存在/static/css/customize.css中-->
+    <link href="/static/css/customize.css" rel="stylesheet">
+    <style>
+a.ex1:hover,a.ex1:active {color:red;}
+a.ex2:hover,a.ex2:active {font-size:150%;}
+a.ex3:hover,a.ex3:active {background:red;}
+a.ex4:hover,a.ex4:active {font-family:'微软雅黑';}
+a.ex5:visited,a.ex5:link {text-decoration:none;}
+a.ex5:hover,a.ex5:active {text-decoration:underline;}
+</style>
+{#    <center>#}
+    <div  style="width: 800px;margin-left:auto;margin-right: auto;">
+    <div style="line-height: 2.5em;">
+     <h3> {{ bbs_obj.title }} </h3>
+    <br>
+    <p>
+    {{ bbs_obj.content | safe}}
+    </p>
+</div>
+
+<hr>
+<div class="comments">
+    <div align="left">
+        {% get_comment_count for bbs_obj as comment_count %}
+        当前有{{ comment_count }}个评论
+
+    </div>
+    <br>
+<div align="left">
+    {% if user.is_authenticated %}
+        <form action="/sub_comment/" method="POST" id="user_comment">
+        {% csrf_token %}
+            <textarea class="form-control" cols="80" rows="2" id="comment_content" name='comment_content' ></textarea><br>
+            <input type="hidden" id="bbs_id" name="bbs_id" value="{{ bbs_obj.id }}" />
+            <input type="submit" value="回复" id="id_submit" />
+        </form>
+    {% else %}
+        <p>请 <a href="/login/">Login</a> 后再进行评论</p>
+    {% endif %}
+
+
+    <hr>
+
+
+{#    {% get_comment_list for bbs_obj as comment_list %}#}
+{#      {% for comment in comment_list reversed %}#}
+{#        <div align="left" style="padding: 5px;" id="comment_div"> {{ comment.submit_date }} 通过 {{ comment.user }}:#}
+{#          <br>#}
+{#           <br>#}
+{#           {{ comment.comment | safe }}</div><br>#}
+          <div id = "comm">
+    <ul class = 'con'>
+        {% get_comment_list for bbs_obj as comment_list %}
+      {% for comment in comment_list reversed %}
+{#        {% for replay in replays %}#}
+            <div class='cont'>
+            <div class='contents'>
+            <div class='name'>
+            {%if comment.user %}
+                {{comment.user}}：</br>
+            {%else%}
+                匿名：</br>
+            {%endif%}
+</div>
+<div class=‘neir‘>
+    <pre>{{ comment.comment | safe }}</pre>
+</div>
+<div class=‘time‘>
+    回复时间：{{comment.submit_date|date:"Y-m-d"}}
+</div></div></div>
+        {% endfor %}
+    </ul>
+</div>
+
+{#      {% endfor %}#}
+{#</div>#}
+{#    </div>#}
+
+
+
+
+{#    </center>#}
+     <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(function() {
+             $("#user_comment").submit(function(){
+             var content = $("#comment_content").val();
+             var bbs_id=$("#bbs_id").val();
+        $.ajax({
+                 type:"post",
+                 dataType:"json",
+                 url:"/sub_comment/"+bbs_id+"/",
+                 data: {
+                 'content': content,
+                 },
+        success: function(data){
+                $('#user_comment')[0].reset();
+                var newcomment = "<li class=\"contents\">" +
+                                      "<div class=\"name\">你：</div>"+
+                                      "<div class=\"neir\">"+"<p>"+data.content+"</p>"+"</div>"+
+                                      "<div class=\"geceng\"></div>"+
+                                      "<div class=\"time\">回复时间：刚刚</div>"+
+                                      "<div class=\"geceng\"></div>"+
+                                  "</li>"
+                $(".con").append(newcomment);
+                 }
+        });
+                return false;
+         });
+     });
+
+</script>
+
+{#  <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>#}
+{#    <script>#}
+{##}
+{#    $(document).ready(function () {#}
+{#        $("#id_submit").click(function () {#}
+{#            var id=$("#bbs_id").val();#}
+{#            var content=$("#comment_content").val();#}
+{#            $.post("/sub_comment/",{"comment_content":content,"bbs_id":id},function (ret) {#}
+{#            $("#aa").html(ret)#}
+{#            });#}
+{#        });#}
+{#    });#}
+{#    </script>#}
+
+
+{% endblock %}
+{% endblock %}

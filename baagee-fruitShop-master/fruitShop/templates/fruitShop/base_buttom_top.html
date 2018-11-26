@@ -1,0 +1,36 @@
+{% extends 'fruitShop/base_buttom.html' %}
+{% block body %}
+<div class="header_con">
+		<div class="header">
+			<div class="welcome fl">欢迎来到天天生鲜!</div>
+			<div class="fr">
+                {% if request.session.user_id %}
+				<div class="login_info fl" style="display: block">
+					欢迎您：<em>{{ request.session.nickname }}</em>
+				</div>
+                <div class="user_link fl">
+					<span>|</span>
+					<a href="{% url 'fruitShop:user_info' %}">用户中心</a>
+					<span>|</span>
+					<a href="{% url 'fruitShop:cart' %}">我的购物车</a>
+					<span>|</span>
+					<a href="{% url 'fruitShop:user_order' 1 %}">我的订单</a>
+                <div class="login_btn fl">
+					<span>|</span>
+					<a href="{% url 'fruitShop:user_logout' %}">退出</a>
+				</div>
+				</div>
+                    {% else %}
+                    <div class="login_btn fl">
+					<a href="{% url 'fruitShop:user_login' %}">登录</a>
+					<span>|</span>
+					<a href="{% url 'fruitShop:user_register' %}">注册</a>
+				</div>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+    {% block body_content %}
+
+        {% endblock %}
+{% endblock %}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WangShi</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="http://cdn.bootcss.com/highlight.js/8.0/styles/monokai_sublime.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/demo.css">
+    <script type="text/javascript" src="/static/js/Markdown.Converter.js"></script>
+    <script type="text/javascript" src="/static/js/Markdown.Sanitizer.js"></script>
+    <script type="text/javascript" src="/static/js/Markdown.Editor.js"></script>
+  </head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top" >
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand"> wangshi </a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav" style="margin-top:0">
+          <li><a href="/index"><span class="glyphicon glyphicon-home"></span> 主页 </a></li>
+          <li><a href="/article"><span class="glyphicon glyphicon-book"></span> 文章 </a></li>
+          <li><a href="/"><span class="glyphicon glyphicon-headphones"></span> 电台 </a></li>
+          <li><a href="/about"><span class="glyphicon glyphicon-info-sign"></span> 关于 </a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心<span class="caret"></span></a>
+          <ul class="dropdown-menu" >
+            <li><a href="/PersonalCenter/">个人信息</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/xuser/">我的文章</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">我的电台</a></li>
+          </ul>
+          </li>
+       </ul>
+    </div>
+    </div>
+  </nav>
+
+  <div class="jumbotron">
+    <div class="container">
+      <h2>{{ obj.title }}</h2>
+      <p><span class="glyphicon glyphicon-minus"></span> {{ obj.desc }}</p>
+      <p><span class="glyphicon glyphicon-user"></span> {{ obj.user.username }}&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-eye-open"></span> {{ obj.click_count }}</p>
+      <p><span class="glyphicon glyphicon-time"></span> {{ obj.date_publish }}</p>
+
+    </div>
+  </div>
+
+
+
+  <div id="information">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="container-fluid" style="padding:0;">
+
+                {% autoescape off %}
+                    {{ obj.music_link }}
+                {% endautoescape %}
+
+
+               {{ obj.body|safe }}
+
+            <!-- UY BEGIN -->
+            <div id="uyan_frame"></div>
+            <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2130524"></script>
+            <!-- UY END -->
+            </div>
+          </div>
+
+        <aside class="col-md-4 sidebar">
+                <!-- start widget -->
+            <!-- end widget -->
+
+            <!-- start tag cloud widget -->
+            <div class="widget">
+                <h4 class="title">社区</h4>
+                <div class="content community">
+                    <p>QQ群：437747312</p>
+                </div>
+            </div>
+            <!-- end tag cloud widget -->
+
+            <!-- start widget -->
+            <div class="widget">
+                <h4 class="title">热门文章</h4>
+            </div>
+            <!-- end widget -->
+
+
+            <!-- start tag cloud widget -->
+            <div class="widget">
+                <h4 class="title">标签云</h4>
+                <div class="content tag-cloud">
+            <a href="#">摇滚</a>
+            <a href="#">流行</a>
+            <a href="#">古典</a>
+            <a href="#">民谣</a>
+            <a href="#">电子</a>
+                </div>
+            </div>
+        </aside>
+
+        </div>
+      </div>
+    </div>
+
+  <footer id="footer" >
+    <div class="container">
+      <p>Powered By Django</p>
+    </div>
+  </footer>
+
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+
+<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

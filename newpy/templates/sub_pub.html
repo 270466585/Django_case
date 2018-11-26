@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://v3.bootcss.com/examples/navbar-fixed-top/ -->
+<html lang="zh-CN" xmlns:text-align="http://www.w3.org/1999/xhtml" xmlns:border-radius="http://www.w3.org/1999/xhtml"
+      xmlns:align="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="http://v3.bootcss.com/favicon.ico">
+
+    <title>云数据</title>
+     <link type="text/css" href="/static/sub_pub_files/icon-svg.min.css" rel="stylesheet">
+    <link type="text/css" href="/static/sub_pub_files/blog-edit.min.css" rel="stylesheet">
+
+    <style type="text/css"></style>
+    <style>
+        .cke {
+            visibility: hidden;
+        }
+    </style>
+    <script type="text/javascript" src="/static/sub_pub_files/config.js"></script>
+    <script type="text/javascript" src="/static/sub_pub_files/skin.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/sub_pub_files/editor.css">
+    <script type="text/javascript" src="/static/sub_pub_files/zh-cn.js"></script>
+    <script type="text/javascript" src="/static/sub_pub_files/styles.js"></script>
+    <script type="text/javascript" src="/static/sub_pub_files/plugin.js"></script>
+    <script type="text/javascript" src="/static/sub_pub_files/plugin(1).js"></script>
+    <script type="text/javascript" src="/static/sub_pub_files/zh-cn(1).js"></script>
+    <script type="text/javascript" src="/static/sub_pub_files/highlight.pack.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/more.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/static/css/navbar-fixed-top.css" rel="stylesheet">
+
+    <link href="/static/css/ico.css" rel="stylesheet">
+    <!--从虎嗅网中导入的带阴影的边框，代码保存在/static/css/customize.css中-->
+    <link href="/static/css/customize.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+a:link,a:visited{
+ text-decoration:none;  /*超链接无下划线*/
+}
+
+</style>
+
+
+  </head>
+
+  <body  style="background-repeat:no-repeat; background-attachment: fixed;">
+
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top"><!--导航标签-->
+      <div class="container"> <!-- 导航的logo -->
+        <div class="navbar-header"><!--导航的头部分-->
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">云数据</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav"> <!--导航栏中的内容-->
+            <li class="active"><a href="/">全部</a></li>
+            <li class="active"><a href="/hot/">最热</a></li>
+            <li class="active"><a href="/technology/">技术区</a></li>
+                {% for category in bbs_category %}
+                    {% ifequal category.id cate_id %}
+                        <li class="active"><a href="/category/{{ category.id }}/">{{ category.name }}</a></li>
+                    {% else %}
+                        <li class=""><a href="/category/{{ category.id }}/">{{ category.name }}</a></li>
+                    {% endifequal %}
+                {% endfor %}
+          </ul>
+
+          <ul class="nav navbar-nav navbar-right"> <!--登陆设置，在最右端的下拉菜单-->
+           <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                  {% if user.is_authenticated %}  <!--信息认证-->
+                    {{ user.username }}
+                  {% else %}
+                     登录
+                  {% endif %}
+
+                  <span class="caret"></span>
+              </a>
+            <ul class="dropdown-menu">
+                {% if user.is_authenticated %}
+
+                    <li><a href="/home/">家</a></li>
+
+                    {% else %}
+
+                    <li ><a href="/login/">登录</a></li>
+                {% endif %}
+
+                <li ><a href="/logout/">注销</a></li>
+            </ul>
+
+{#           <li><a href="/login/">登录</a></li>#}
+{#                <li><a href="/logout/">注销</a></li>#}
+</li>
+            </ul>
+{#<ul class="dropdown-menu" role="menu">#}
+{#                <li><a href="/login/">登录</a></li>#}
+{#                <li><a href="/logout/">注销</a></li>#}
+{##}
+{#              </ul>#}
+
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div>
+
+
+
+
+        <val data-name="save_url" data-value="/action/blog/save"></val>
+
+        <val data-name="blog_editor" data-value="4"></val>
+        <val data-name="tags" data-value=""></val>
+        <val data-name="is_edit" data-value="false"></val>
+        <val data-name="blog_url" data-value="https://my.oschina.net/u/3264690/blog"></val>
+        <val data-name="is_draft" data-value="false"></val>
+        <val data-name="draft_id" data-value=""></val>
+        <val data-name="tag_prompt_url" data-value="/action/suggestion/word"></val>
+        <val data-name="delete_catalog_url" data-value="/action/blog/quick_delete_blog_catalog"></val>
+        <val data-name="add_catalog_url" data-value="/action/blog/quick_add_blog_catalog"></val>
+        <val data-name="toggle_editor_url" data-value="/action/blog/update_blog_disp_settings"></val>
+        <val data-name="mdeditor_img_upload_url" data-value="/action/upload/imgUpload"></val>
+
+        <div class="blog-edit">
+            <form id="blog-form" method="post" action="/bbs_sub/" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="draft" value="0">
+                <input type="hidden" name="user_code" value="mcuom6xGdHEFWP57nTFEvBeRcFhYpNWHxPeCSw9G">
+                <input type="hidden" name="id" value="">
+                <div class="edit-fixed edit-fixed-header">
+                    <!-- 编辑页头部 -->
+                    <div class="edit-header clearfix">
+                        <div class="container">
+                            <div class="layout-right edit-catalog">
+                                <div class="select-box">
+                                    分类：
+                                    <input class="drop-input" id="self_sort" type="hidden" name="catalog" value="5603458">
+                                    <span class="select-show over-hide" id="click_class" data-value="5603458">
+						        	杂文
+					        	</span>
+                                    <i class="icon-tri select-icon"></i>
+                                    <div class="dropdown">
+                                        <div class="sort-items">
+                                            <div class="select-opt active" id="zawen" data-value="5603458">
+                                                <span class="opt-name over-hide">杂文</span>
+                                            </div>
+                                            <div class="select-opt" id="it" data-value="5603459">
+                                                <span class="opt-name over-hide">IT技术</span>
+                                            </div>
+{#                                            <div class="select-opt" data-value="5603460">#}
+{#                                                <span class="opt-name over-hide">转贴的文章</span>#}
+{#                                            </div>#}
+                                        </div>
+                                        <div class="add-sort">
+                                            <input class="input-add-sort" type="text" placeholder="新的分类/回车确认" maxlength="10">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="edit-left">
+                                <input class="title" id="title" type="text" name="title" placeholder="无标题博客" value="" maxlength="100">
+                                <div>
+                                    <textarea class="abstract" name="summary" placeholder="无摘要" value="" maxlength="300"></textarea>
+                                </div>
+                                <input type="hidden" id="class" value="1" name="class"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <!-- 编辑器编辑框部分 -->
+<!--引入wangEditor.css-->
+<link rel="stylesheet" type="text/css" href="/static/wangEditor/dist/css/wangEditor.min.css">
+
+
+<!--引入jquery和wangEditor.js-->   <!--注意：javascript必须放在body最后，否则可能会出现问题-->
+<script type="text/javascript" src="/static/wangEditor/dist/js/lib/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="/static/wangEditor/dist/js/wangEditor.min.js"></script>
+                <center>
+                <div style="max-width:800px;padding-left:0;padding-right:0;margin: auto">
+<textarea name="content" id="div1" style="height:400px;max-height:500px">
+    <p>请输入内容...</p>
+
+</textarea></div></center>
+                    <br>
+{#                添加插图:<input type="file" name="summary_pictrue" placeholder="Summary" >#}
+{#                                    <br>#}
+
+                    <div align="center">
+                  <button class="btn btn-default" type="submit">发布</button>
+</div>
+            </form>
+        </div>
+        <script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+
+        $("#zawen").click(function(){
+            $("#class").val(1);
+          $("#click_class").html("杂文");
+      });
+
+      $("#it").click(function(){
+          $("#class").val(2);
+          $("#click_class").html("IT技术");
+      });
+    });
+</script>
+
+                <script type="text/javascript">
+                    var div=document.getElementById('div1');
+                    var editor=new wangEditor('div1');
+                    editor.config.uploadImgUrl = '/static/img/bbs_pictrue';
+
+    // 配置自定义参数（举例）
+    editor.config.uploadParams = {
+        token: 'abcdefg',
+        user: 'wangfupeng1988'
+    };
+
+    // 设置 headers（举例）
+    editor.config.uploadHeaders = {
+        'Accept' : 'text/x-json'
+    };
+
+    // 隐藏掉插入网络图片功能。该配置，只有在你正确配置了图片上传功能之后才可用。
+    editor.config.hideLinkImg = true;
+                    editor.create();
+
+
+                </script>
+
+                        <!-- 编辑器选择项部分 -->
+{#                        <div class="edit-select">#}
+{##}
+{##}
+{#                            <div class="edit-tags edit-panel">#}
+{#                                <div class="row-left">#}
+{#                                    <input type="text" name="tags" id="input_tags" class="hide" value=""> 标签：#}
+{#                                </div>#}
+{##}
+{##}
+{##}
+{#                                标签#}
+{#                                <div class="row-right">#}
+{#                                    <div class="tags"></div>#}
+{#                                    <div class="add-tags-box">#}
+{#                                        <input type="text" class="input-tags" placeholder="请输入关键词，用逗号隔开，最多5个哦" maxlength="20" style="display: inline-block;">#}
+{#                                        <ul class="autoPrompt"></ul>#}
+{#                                    </div>#}
+{#                                </div>#}
+{##}
+{##}
+{#                                #}
+{#                            </div>#}
+{##}
+{##}
+{#                            <div class="edit-panel edit-list">#}
+{#                                <ul>#}
+{#                                    <li class="edit-row edit-sys-sort">#}
+{#                                        <div class="row-left">#}
+{#                                            <span class="font-red">* </span>系统分类:#}
+{#                                        </div>#}
+{#                                        <div class="row-right">#}
+{#                                            <div class="select-box">#}
+{#                                                <input class="drop-input select-input" id="sys_sort" type="hidden" name="classification" value="0">#}
+{#                                                <span class="select-show"><span class="font-gray">请选择</span></span>#}
+{#                                                <i class="icon-tri select-icon"></i>#}
+{#                                                <div class="dropdown">#}
+{#                                                    <div class="select-opt" data-value="428602">移动开发</div>#}
+{#                                                    <div class="select-opt" data-value="428612">前端开发</div>#}
+{#                                                    <div class="select-opt" data-value="5611447">人工智能</div>#}
+{#                                                    <div class="select-opt" data-value="428640">服务端开发/管理</div>#}
+{#                                                    <div class="select-opt" data-value="429511">游戏开发</div>#}
+{#                                                    <div class="select-opt" data-value="428609">编程语言</div>#}
+{#                                                    <div class="select-opt" data-value="428610">数据库</div>#}
+{#                                                    <div class="select-opt" data-value="428611">企业开发</div>#}
+{#                                                    <div class="select-opt" data-value="428647">图像/多媒体</div>#}
+{#                                                    <div class="select-opt" data-value="428613">系统运维</div>#}
+{#                                                    <div class="select-opt" data-value="428638">软件工程</div>#}
+{#                                                    <div class="select-opt" data-value="5593654">大数据</div>#}
+{#                                                    <div class="select-opt" data-value="428639">云计算</div>#}
+{#                                                    <div class="select-opt" data-value="430884">开源硬件</div>#}
+{#                                                    <div class="select-opt" data-value="430381">其他类型</div>#}
+{#                                                </div>#}
+{#                                            </div>#}
+{#                                        </div>#}
+{#                                    </li>#}
+{##}
+{#                                </ul>#}
+{##}
+{##}
+{#</div>#}
+{#                <!-- 编辑器保存按钮部分 -->#}
+{#                <div class="edit-ctrl edit-fixed-footer">#}
+{#                    <div class="container">#}
+{#                        <button type="button" onclick="div" class="stash-draft btn-disabled ">保存草稿</button>#}
+{#                        <button type="button" class="btn btn-green">发 布</button>#}
+{#                    </div>#}
+{#                </div>#}
+{# </div>#}
+
+{##}
+{#            <!-- 错误提示框 -->#}
+{#            <div data-type="tip" data-tip-type="fixed" class="tooltips-box">#}
+{#                <div class="tooltips" id="error_tip"></div>#}
+{#            </div>#}
+{#            <!-- 回到顶部按钮 -->#}
+{#            <div class="tool-top" style="display: none;">#}
+{#                <a href="#" class="over">#}
+{#                    <div class="icon">#}
+{#                        <i class="icon-svg icon-go-top"></i>#}
+{#                    </div>#}
+{#                    <div class="txt">顶部</div>#}
+{#                </a>#}
+{#            </div>#}
+{##}
+{##}
+{#        <script type="text/javascript" src="/static/sub_pub_files/ckeditor.js"></script>#}
+{#    </div>#}
+    <script type="text/javascript" src="/static/sub_pub_files/blog_edit.min.js"></script>
+    <style type="text/css">
+        .osc-map {
+            font-size: 0;
+            padding: 16px 0 0;
+            background: #FAFAFA;
+        }
+        
+        .map-header {
+            font-size: 12px;
+            font-weight: normal;
+            margin: 0 0 10px;
+            height: 18px;
+            color: #4A4A4A;
+        }
+        
+        .map-header.bigger {
+            font-weight: bold;
+        }
+        
+        .map-link {
+            font-size: 12px;
+            display: block;
+            line-height: 20px;
+            color: #4A4A4A;
+            transition: color .2s;
+        }
+        
+        .map-link:hover {
+            color: #21B351;
+        }
+        
+        .wechat {
+            margin: 0 auto;
+        }
+        
+        .osc-footer {
+            background: #444444;
+        }
+        
+        .content-wrapper {
+            width: 1200px;
+            margin: 0 auto;
+            height: 36px;
+        }
+        
+        .osc-footer * {
+            font-size: 12px;
+            color: #CFCFCF;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+        $(".box").css({
+            width: "100%",
+            maxWidth: "1200px",
+            margin: "0 auto"
+        });
+    </script>
+
+
+
+    <!-- Generated by OsChina.NET (init:0[ms],page:17[ms],ip:202.101.209.103) -->
+</body>
+
+</html>
